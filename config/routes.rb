@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   root 'static#welcome'
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   namespace :admin do
     resources :pets
     resources :breeds
