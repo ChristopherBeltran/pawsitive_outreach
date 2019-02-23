@@ -1,2 +1,23 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=2233509133588204&autoLogAppEvents=1"></script>
+<form action="/login" method="POST" style="border:1px solid #ccc">
+
+  <div class="container">
+    <h2>Login</h2>
+    <hr>
+    <label for="email"><b>Email:</b></label>
+    <input type="text" placeholder="Enter Email" name="email">
+    <br>
+    <br>
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required>
+    <br>
+    <br>
+    <button type="submit">Login</button>
+  </div>
+  <br>
+</form>
+
+<p> OR Log In With Facebook </p>
+
+<%= link_to('Log in with Facebook!', '/auth/facebook') %>
