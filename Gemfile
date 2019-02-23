@@ -28,6 +28,7 @@ gem 'omniauth-facebook'
 gem 'pry'
 gem 'toastr-rails'
 gem 'bcrypt'
+gem 'dotenv'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
