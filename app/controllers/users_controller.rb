@@ -20,4 +20,10 @@ class UsersController < ApplicationController
   def destroy
   end
 
+private
+
+def user_params
+  require(:user).permit(:email, :name, :phone_number, :address, :password, :password_confirmation)
+end 
+
 end
