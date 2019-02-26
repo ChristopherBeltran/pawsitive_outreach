@@ -20,10 +20,10 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/users/<%=current_user.slug%>">Profile <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/users/<%=current_user.id%>">Profile <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/users/<%=current_user.slug/pets%>">My Pets</a>
+        <a class="nav-link" href="/users/<%=current_user.id%>/pets">My Pets</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/pets">View Available Pets</a>
@@ -43,7 +43,7 @@
 <div class="collapse navbar-collapse" id="navbarText">
   <ul class="navbar-nav mr-auto">
     <li class="nav-item active">
-      <a class="nav-link" href="users/new">Sign Up <span class="sr-only">(current)</span></a>
+      <a class="nav-link" href="users/new">Sign Up <span class="sr-only"></span></a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/login">Log In</a>

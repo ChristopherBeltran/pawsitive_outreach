@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_secure_password
   has_many :adoptions
   has_many :pets, through: :adoptions
 
@@ -10,7 +11,7 @@ class User < ActiveRecord::Base
       user.email = auth.info.email
       user.save!
     end
-  end 
+  end
 
 
 
