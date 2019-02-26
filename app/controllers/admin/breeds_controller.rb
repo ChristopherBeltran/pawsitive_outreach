@@ -1,4 +1,5 @@
 class Admin::BreedsController < ApplicationController
+  before_action :admin_authenticate
 
   def index
   end
@@ -10,7 +11,7 @@ class Admin::BreedsController < ApplicationController
   end
 
   def show
-  end 
+  end
 
   def edit
   end

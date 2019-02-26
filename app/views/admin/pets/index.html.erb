@@ -1,0 +1,16 @@
+<h3> Pet List </h3>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Breed</th>
+  </tr>
+<% @pets.each do |pet| %>
+  <tr>
+  <td><%= pet.name %></td>
+  <td><%= pet.age %></td>
+  <% pet.breeds.each do |breed| %>
+  <td><%=breed.name%></td>
+  <%end%>
+</tr>
+<%end%>

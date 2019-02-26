@@ -1,0 +1,44 @@
+<% if admin_page? %>
+<h2> Admin Login </h2>
+<br>
+<form action="/login" method="POST" style="border:1px solid #ccc">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+<label for="email"><b>Email:</b></label>
+<input type="text" placeholder="Enter Email" name=admin[email]>
+<br>
+<br>
+<label for="password"><b>Password</b></label>
+<input type="password" placeholder="Enter Password" name=admin[password]>
+<br>
+<br>
+<button type="submit">Login</button>
+
+
+<% else %>
+
+<h2> Login </h2>
+  <br>
+  <%= form_tag ({controller: 'sessions', action: 'create', method: 'post'}) do %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+  <label for="email"><b>Email:</b></label>
+  <input type="text" placeholder="Enter Email" name=user[email]>
+  <br>
+  <br>
+  <label for="password"><b>Password</b></label>
+  <input type="password" placeholder="Enter Password" name=user[password]>
+  <br>
+  <br>
+  <button type="submit">Login</button>
+  <br>
+  <br>
+  <p> OR   <%= link_to('Log in with Facebook!', '/auth/facebook') %> </p>
+  <br>
+  <br>
+  <br>
+  <p> Admin? Log in <%= link_to('here', admin_login_url) %> </p>
+
+  <%end%>
+
+  <%end%>

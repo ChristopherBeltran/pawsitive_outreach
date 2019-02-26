@@ -1,6 +1,8 @@
 class Admin::PetsController < ApplicationController
+  before_action :admin_authenticate
 
   def index
+    @pets = Pet.all
   end
 
   def new
@@ -10,7 +12,7 @@ class Admin::PetsController < ApplicationController
   end
 
   def show
-  end 
+  end
 
   def edit
   end
