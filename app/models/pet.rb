@@ -11,5 +11,16 @@ class Pet < ActiveRecord::Base
     end
   end
 
+  def display_breed
+    if self.breeds.count > 1
+      names = []
+      self.breeds.each do |breed|
+        names << breed.name
+      end
+      names.map(&:inspect).join('/')
+    else
+      self.breed.name
+    end
+  end
 
 end
