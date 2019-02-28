@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     @user.save
     session[:user_id] = @user.id
-    render @user
+    redirect_to user_path(@user)
   end
 
 

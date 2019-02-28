@@ -13,10 +13,12 @@ class SessionsController < ApplicationController
       request.env['omniauth.auth']
       @user = User.find_or_create_from_auth_hash(env['omniauth.auth'])
       session[:user_id] = @user.id
-      redirect_to @user
+      redirect_to user_path(@user)
     else
       @user = User.find_by(email: params[:user][:email])
       return head(:forbidden) unless @user.authenticate(params[:user][:password])
+      session[:user_id] = @user.id
+      redirect_to user_path(@user)
     end
   end
 
