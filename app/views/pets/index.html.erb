@@ -10,7 +10,7 @@
 <h1>Available Pets </h1>
 <% @pets.each do |pet| %>
 <%= pet.name %> - <%= pet.age %> years old - <%= pet.display_breed %>
-<%= link_to "Adopt?", new_user_adoption_path(current_user) %>
+<%= link_to "Adopt?", new_pet_adoption_path(pet) %>
 <br>
 <% end %>
 <% end %>

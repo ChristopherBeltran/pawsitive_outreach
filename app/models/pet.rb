@@ -19,7 +19,9 @@ class Pet < ActiveRecord::Base
       end
       names.map(&:inspect).join('/')
     else
-      self.breed.name
+      self.breeds.each do |breed|
+        return breed.name
+      end
     end
   end
 

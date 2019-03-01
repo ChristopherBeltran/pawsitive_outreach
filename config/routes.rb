@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/admin/login', to: 'sessions#new', :as => :admin_login
 
 
+
   resources :pets, only: [:index]
 
   namespace :admin do
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
   end
 
   resources :pets do
-    resources :adoptions, only: [:new]
+    resources :adoptions, only: [:new, :create]
   end
 
 

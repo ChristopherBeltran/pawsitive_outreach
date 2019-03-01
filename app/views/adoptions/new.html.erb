@@ -1,0 +1,11 @@
+<h1> <%=@pet.name%>'s Adoption Agreement </h1>
+
+<%= form_for([@pet, @adoption]) do |f| %>
+<%= f.hidden_field :pet_id, :value => @pet.id %>
+<%= f.hidden_field :user_id, :value => current_user.id %>
+<%= f.label :adoption_date %>
+<%= f.date_field :adoption_date %>
+<%= f.label "Are you fostering this pet?" %>
+<%= f.check_box :foster, {}, true, false %>
+<%= f.submit "Adopt #{@pet.name}" %>
+<% end %>
