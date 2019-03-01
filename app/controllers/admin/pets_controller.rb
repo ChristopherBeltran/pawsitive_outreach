@@ -6,6 +6,7 @@ class Admin::PetsController < ApplicationController
   end
 
   def new
+    @pet = Pet.new
   end
 
   def create
