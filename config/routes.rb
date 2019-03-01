@@ -15,10 +15,14 @@ Rails.application.routes.draw do
     resources :breeds
   end
 
+  resources :pets do
+    resources :adoptions, only: [:new]
+  end
+
 
   resources :users do
     resources :pets, only: [:index, :show, :edit]
-    resources :adoptions, only: [:new, :show, :index, :create]
+    resources :adoptions, only: [:show, :index]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
