@@ -3,11 +3,17 @@ class Pet < ActiveRecord::Base
   has_many :users, through: :adoptions
   has_many :pet_breeds
   has_many :breeds, through: :pet_breeds
+  accepts_nested_attributes_for :breeds
+  validates :name, presence: true
+  validates :age, presence: true
+  validates_inclusion_of :age, :in => 1..30
 
-  def breeds=(breeds)
-    breeds.each do |name|
-      breed = Breed.find_or_create_by(name: name)
+  def breed_attributes=(breed_attributes)
+    breed_attributes.values.each do |breed_attribute|
+      if breed_attribute[:name] != ""
+      breed = Breed.find_or_create_by(breed_attribute)
       self.breeds << breed
+    end
     end
   end
 

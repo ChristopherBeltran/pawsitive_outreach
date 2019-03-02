@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
   has_many :pets, through: :adoptions
   validates :phone_number, length: { is: 10 }
   validates :name, presence: true
-  validates :name, uniqueness: true
   validates :email, presence: true
   validates :email, uniqueness: true
 

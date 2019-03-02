@@ -6,5 +6,15 @@
 <br>
 <%= f.label :age %>
 <%= f.number_field :age %>
+<br>
+<%= f.label :breed %>
+<br>
+<%= collection_check_boxes :breed_ids, :id, Breed.all, :id, :name %>
+<%= fields_for :breeds, @pet.breeds.build do |breeds_fields| %>
+<br>
+<%= f.label "New breed?" %>
+<%= breeds_fields.text_field :name %>
+<br>
 <%= f.submit "Add Pet" %>
+<% end %>
 <% end %>
