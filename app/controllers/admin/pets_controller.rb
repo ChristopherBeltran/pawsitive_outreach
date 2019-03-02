@@ -10,6 +10,12 @@ class Admin::PetsController < ApplicationController
   end
 
   def create
+    @pet = Pet.create(pet_params)
+    if @pet.save
+      redirect_to admin_pets_path
+    else
+      redirect_to new_admin_pet_path
+    end 
   end
 
   def show
