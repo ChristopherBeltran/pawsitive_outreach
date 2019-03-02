@@ -3,6 +3,8 @@
 <%= form_for @pet do |f| %>
 <%= f.label :name %>
 <%= f.text_field :name %>
+<br>
 <%= f.label :age %>
 <%= f.number_field :age %>
 <%= f.submit "Add Pet" %>
+<% end %>

@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if request.referrer.include? "admin"
       @admin = Admin.find_by(email: params[:admin][:email])
       return head(:forbidden) unless @admin.authenticate(params[:admin][:password])
-      session[:user_id] = @admin.id
+      session[:admin_id] = @admin.id
       redirect_to admin_pets_path
     elsif
       request.env['omniauth.auth']
@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
+    session[:user_id] = nil && session[:admin_id] = nil
     redirect_to root_path
 end
 
