@@ -10,6 +10,7 @@
   <td><%= pet.name %></td>
   <td><%= pet.age %></td>
   <td><%=pet.display_breed%></td>
+  <td><%= link_to "Edit Pet", edit_admin_pet_path(pet), class: 'button' %></td>
   <%end%>
 </tr>
 

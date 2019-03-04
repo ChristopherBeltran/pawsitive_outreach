@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: 'logout'
   get '/admin/login', to: 'sessions#new', :as => :admin_login
   post '/admin/pets', to: 'admin/pets#create', :as => :admin_pet_create
-
+  patch '/admin/pets/:id(.:format)', to: 'admin/pets#update', :as => :admin_pet_update
 
   resources :pets, only: [:index]
 

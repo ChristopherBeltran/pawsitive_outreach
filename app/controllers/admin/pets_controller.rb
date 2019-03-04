@@ -15,16 +15,21 @@ class Admin::PetsController < ApplicationController
       redirect_to admin_pets_path
     else
       redirect_to new_admin_pet_path
-    end 
+    end
   end
 
   def show
+    @pet = Pet.find_by(id: params[:id])
   end
 
   def edit
+    @pet = Pet.find_by(id: params[:id])
   end
 
   def update
+    @pet = Pet.find_by(id: params[:id])
+    @pet.update(pet_params)
+    redirect_to admin_pets_path
   end
 
   def destroy

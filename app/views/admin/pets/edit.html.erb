@@ -1,0 +1,21 @@
+<h1> Edit <%= @pet.display_name%> Info </h1>
+
+
+<%= form_for @pet, :url => admin_pet_update_path do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+<br>
+<%= f.label :age %>
+<%= f.number_field :age %>
+<br>
+<%= f.label :breed %>
+<br>
+<%= collection_check_boxes :pet, :breed_ids, Breed.all, :id, :name %>
+<%= f.fields_for :breed_attributes, @pet.breeds.build do |breeds_fields| %>
+<br>
+<%= f.label "New breed?" %>
+<%= breeds_fields.text_field :name %>
+<br>
+<%= f.submit "Update #{@pet.name}" %>
+<% end %>
+<% end %>
