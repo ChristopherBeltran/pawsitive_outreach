@@ -1,10 +1,15 @@
-<% if @user_pets %>
+<% if @user_pets && @user_pets.count < 1 %>
+<h3> No pet's yet! </h3>
+<p> Head over to <%= link_to "View Available Pets", pets_path%>, to adopt a new furry friend! </p>
+
+<% elsif @user_pets %>
 <h1><%=current_user.name%>'s Pets</h1>
 <% @user_pets.each do |pet| %>
 <br>
 
 <%= pet.name %> - <%= pet.age %> years old - <%= pet.display_breed %>
 <% end %>
+
 
 <% else %>
 <h1>Available Pets </h1>
