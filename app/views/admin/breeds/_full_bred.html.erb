@@ -1,0 +1,11 @@
+<% def full_bred? %>
+<% if pet.breeds.count > 1 %>
+<%    pet.breeds.each do |breed| %>
+<%      if breed.name != @breed.name %>
+<%        return breed.name %>
+<%      end %>
+<%    end %>
+<%  else %>
+<%    "Y" %>
+<%  end %>
+<% end %>

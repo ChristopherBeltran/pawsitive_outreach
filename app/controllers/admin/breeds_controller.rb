@@ -13,6 +13,7 @@ class Admin::BreedsController < ApplicationController
 
   def show
     @breed = Breed.find_by(id: params[:id])
+    @pets = Pet.from_breed(@breed)
   end
 
   def edit
@@ -23,5 +24,6 @@ class Admin::BreedsController < ApplicationController
 
   def destroy
   end
+
 
 end

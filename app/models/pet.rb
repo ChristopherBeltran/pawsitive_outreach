@@ -42,6 +42,6 @@ class Pet < ActiveRecord::Base
     params = breed.name
     Pet.joins(:breeds).where({"breeds.name" => params })
   end
-  #User.where("name = :name and email = :email", { name: "Joe", email: "joe@example.com" })
-#User.joins(:posts).where({ "posts.published" => true })
+
+
 end

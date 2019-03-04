@@ -1,1 +1,23 @@
 <h1><%= @breed.name%>'s</h1>
+<table style="width:100%">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Full-Bred</th>
+  </tr>
+<% @pets.each do |pet| %>
+  <tr>
+  <td><%= pet.name %></td>
+  <td><%= pet.age %></td>
+  <% if pet.breeds.count > 1 %>
+  <% pet.breeds.each do |breed| %>
+  <% if breed.name != @breed.name %>
+  <td>N (Mixed With <%= breed.name %>)</td>
+  <% end %>
+  <% end %>
+  <% else %>
+  <td> Y </td>
+  <% end %>
+  <td><%= link_to "Edit Pet", edit_admin_pet_path(pet), class: 'button' %></td>
+  <%end%>
+</tr>
