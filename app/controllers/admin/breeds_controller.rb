@@ -12,6 +12,7 @@ class Admin::BreedsController < ApplicationController
   end
 
   def show
+    @breed = Breed.find_by(id: params[:id])
   end
 
   def edit

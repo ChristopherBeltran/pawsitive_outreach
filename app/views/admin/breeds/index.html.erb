@@ -9,5 +9,7 @@
   <tr>
   <td><%= name %></td>
   <td><%= count %></td>
+  <% breed = Breed.find_by(name: name) %>
+  <td><%= link_to "View Pets", admin_breed_path(breed), class: 'button' %></td>
   <%end%>
 </tr>

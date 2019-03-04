@@ -35,5 +35,13 @@ class Pet < ActiveRecord::Base
     else
       "#{self.name}'s"
     end
-  end 
+  end
+
+  #Class Scope Method
+  def self.from_breed(breed)
+    params = breed.name
+    Pet.joins(:breeds).where({"breeds.name" => params })
+  end
+  #User.where("name = :name and email = :email", { name: "Joe", email: "joe@example.com" })
+#User.joins(:posts).where({ "posts.published" => true })
 end
