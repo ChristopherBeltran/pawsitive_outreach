@@ -27,7 +27,10 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil && session[:admin_id] = nil
+    session.delete(:user_id)
+    @current_user = nil
+    session.delete(:admin_id)
+    @current_admin = nil
     redirect_to root_path
 end
 

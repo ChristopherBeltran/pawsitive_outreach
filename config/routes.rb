@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   post '/login', :to => 'sessions#create'
   get '/auth/facebook/callback', :to => 'sessions#create'
   get '/auth/failure', :to => 'sessions#failure'
-  get 'logout', to: 'sessions#destroy', as: 'logout'
+  delete '/logout', to: 'sessions#destroy', as: 'logout'
   get '/admin/login', to: 'sessions#new', :as => :admin_login
   post '/admin/pets', to: 'admin/pets#create', :as => :admin_pet_create
   patch '/admin/pets/:id(.:format)', to: 'admin/pets#update', :as => :admin_pet_update
