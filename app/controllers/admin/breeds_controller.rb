@@ -2,6 +2,7 @@ class Admin::BreedsController < ApplicationController
   before_action :admin_authenticate
 
   def index
+    @breeds = Breed.all
   end
 
   def new

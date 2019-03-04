@@ -9,12 +9,9 @@ class Pet < ActiveRecord::Base
   validates_inclusion_of :age, :in => 1..30
 
   def breed_attributes=(breed_attributes)
-    binding.pry
-    #breed_attributes.values.each do |breed_attribute|
       if breed_attributes[:name] != ""
       breed = Breed.find_or_create_by(breed_attributes)
       self.breeds << breed
-  #  end
     end
   end
 
