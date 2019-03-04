@@ -2,7 +2,8 @@ class Admin::PetsController < ApplicationController
   before_action :admin_authenticate
 
   def index
-    @pets = Pet.all
+    @pets = Pet.all.order(:name)
+    #Class Scope Method
   end
 
   def new
