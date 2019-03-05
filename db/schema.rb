@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_26_071445) do
+ActiveRecord::Schema.define(version: 2019_03_05_051517) do
 
   create_table "admins", force: :cascade do |t|
     t.string "first_name"
@@ -23,8 +23,6 @@ ActiveRecord::Schema.define(version: 2019_02_26_071445) do
     t.integer "user_id"
     t.integer "pet_id"
     t.date "adoption_date"
-    t.boolean "foster"
-    t.date "end_date"
   end
 
   create_table "breeds", force: :cascade do |t|

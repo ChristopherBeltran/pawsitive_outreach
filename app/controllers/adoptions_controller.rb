@@ -12,13 +12,12 @@ class AdoptionsController < ApplicationController
   end
 
   def create
-    foster?
     @adoption = Adoption.create(adoption_params)
     @adoption.save
-    if @adoption
-      redirect_to user_adoptions_path(@user, @adoption)
-    else
-      redirect_to pets_path
+      if @adoption
+        redirect_to user_adoptions_path(current_user, @adoption)
+      else
+        redirect_to pets_path
     end
   end
 
@@ -34,14 +33,7 @@ class AdoptionsController < ApplicationController
 private
 
 def adoption_params
-  params.require(:adoption).permit(:user_id, :pet_id, :adoption_date, :foster, :end_date)
+  params.require(:adoption).permit(:user_id, :pet_id, :adoption_date)
 end
-
-def foster?
-  if params[:adoption][:foster] == true
-    render :foster
-  end
-end
-
 
 end

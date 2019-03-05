@@ -5,7 +5,5 @@
 <%= f.hidden_field :user_id, :value => current_user.id %>
 <%= f.label :adoption_date %>
 <%= f.date_field :adoption_date %>
-<%= f.label "Are you fostering this pet?" %>
-<%= f.check_box :foster, {}, true, false %>
 <%= f.submit "Adopt #{@pet.name}" %>
 <% end %>
