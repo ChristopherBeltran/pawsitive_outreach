@@ -1,0 +1,7 @@
+<h3>Would you like to change <%=@pet.display_name%> name?</h3>
+
+<%= form_for @pet do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+<%= f.submit "Update #{@pet.name}" %>
+<% end %>

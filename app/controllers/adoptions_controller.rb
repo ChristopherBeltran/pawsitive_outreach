@@ -15,7 +15,8 @@ class AdoptionsController < ApplicationController
     @adoption = Adoption.create(adoption_params)
     @adoption.save
       if @adoption
-        redirect_to user_pets_path(current_user)
+        @pet = Pet.find_by(id: params[:pet_id])
+        redirect_to edit_user_pet_path(current_user, @pet)
       else
         redirect_to pets_path
     end
