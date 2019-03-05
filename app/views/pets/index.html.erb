@@ -4,11 +4,8 @@
 
 <% elsif @user_pets %>
 <h1><%=current_user.name%>'s Pets</h1>
-<% @user_pets.each do |pet| %>
-<br>
+<%= render "layouts/pets_table" %>
 
-<%= pet.name %> - <%= pet.age %> years old - <%= pet.display_breed %>
-<% end %>
 
 
 <% else %>

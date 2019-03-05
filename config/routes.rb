@@ -22,8 +22,8 @@ Rails.application.routes.draw do
 
 
   resources :users do
-    resources :pets, only: [:index, :show, :edit]
-    resources :adoptions, only: [:show, :index]
+    resources :pets, only: [:index, :show, :edit, :update]
+    resources :adoptions, only: [:destroy]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

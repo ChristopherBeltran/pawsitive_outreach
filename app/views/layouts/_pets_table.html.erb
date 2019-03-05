@@ -1,3 +1,24 @@
+<% if @user_pets %>
+<table style="width:100%">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Breed</th>
+    <th>Adoption Date</th>
+  </tr>
+<% @user_pets.each do |pet| %>
+  <tr>
+  <td><%= pet.name %></td>
+  <td><%= pet.age %></td>
+  <td><%=pet.display_breed%></td>
+  <% adoption = current_user.find_adoption_by_pet(pet) %>
+  <td><%=adoption.adoption_date%></td>
+  <td><%= link_to "End Adoption?", user_adoption_path(current_user, adoption), class: 'button', method: 'delete' %></td>
+  <%end%>
+</tr>
+
+<% else %>
+
 <table style="width:100%">
   <tr>
     <th>Name</th>
@@ -16,3 +37,4 @@
   <%end%>
   <%end%>
 </tr>
+<%end%>

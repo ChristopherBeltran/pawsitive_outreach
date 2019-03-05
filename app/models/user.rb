@@ -17,6 +17,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def find_adoption_by_pet(pet)
+    self.adoptions.each do |adoption|
+      if adoption.pet_id == pet.id
+        return adoption
+      end
+    end
+  end 
+
 
 
 
