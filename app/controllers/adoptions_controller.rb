@@ -15,7 +15,7 @@ class AdoptionsController < ApplicationController
     @adoption = Adoption.create(adoption_params)
     @adoption.save
       if @adoption
-        redirect_to user_adoptions_path(current_user, @adoption)
+        redirect_to user_adoptions_path(current_user)
       else
         redirect_to pets_path
     end

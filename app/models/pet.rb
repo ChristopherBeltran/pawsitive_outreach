@@ -43,5 +43,11 @@ class Pet < ActiveRecord::Base
     Pet.joins(:breeds).where({"breeds.name" => params })
   end
 
+  #Class Scope Method
+  def self.without_owner
+    Pet.joins('left outer join adoptions on adoptions.pet_id = pets.id').where('adoptions.id is null')
+  end
+
+
 
 end
