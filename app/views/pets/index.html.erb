@@ -1,5 +1,5 @@
 <% if @user_pets && @user_pets.count < 1 %>
-<h3> No pet's yet! </h3>
+<h3> No pets yet! </h3>
 <p> Head over to <%= link_to "View Available Pets", pets_path%>, to adopt a new furry friend! </p>
 
 <% elsif @user_pets %>
@@ -13,9 +13,6 @@
 
 <% else %>
 <h1>Available Pets </h1>
-<% @pets.each do |pet| %>
-<%= pet.name %> - <%= pet.age %> years old - <%= pet.display_breed %>
-<%= link_to "Adopt?", new_pet_adoption_path(pet) %>
+<%= render "layouts/pets_table" %>
 <br>
-<% end %>
 <% end %>

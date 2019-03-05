@@ -1,17 +1,5 @@
 <h3> Pet List </h3>
-<table style="width:100%">
-  <tr>
-    <th>Name</th>
-    <th>Age</th>
-    <th>Breed</th>
-  </tr>
-<% @pets.each do |pet| %>
-  <tr>
-  <td><%= pet.name %></td>
-  <td><%= pet.age %></td>
-  <td><%=pet.display_breed%></td>
-  <td><%= link_to "Edit Pet", edit_admin_pet_path(pet), class: 'button' %></td>
-  <%end%>
-</tr>
+<%= render "layouts/pets_table" %>
+
 
 <p> Need to add a <%= link_to "new pet?", new_admin_pet_path %> </p>

@@ -3,7 +3,7 @@ class PetsController < ApplicationController
 
   def index
     if params[:user_id] == nil
-      @pets = Pet.all
+      @pets = Pet.all.sort_by(&:name)
     elsif params[:user_id] != nil && current_user == User.find_by(id: params[:user_id])
       @user_pets = current_user.pets
     else

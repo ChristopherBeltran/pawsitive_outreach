@@ -21,7 +21,7 @@ class Pet < ActiveRecord::Base
       self.breeds.each do |breed|
         names << breed.name
       end
-      names.map(&:inspect).join('/')
+      names.map(&:inspect).join('/').delete('"')
     else
       self.breeds.each do |breed|
         return breed.name
