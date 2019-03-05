@@ -16,6 +16,7 @@ class Admin::PetsController < ApplicationController
       redirect_to admin_pets_path
     else
       redirect_to new_admin_pet_path
+      #error for pet being invalid
     end
   end
 

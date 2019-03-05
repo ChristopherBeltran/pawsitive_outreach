@@ -5,4 +5,5 @@ module UsersHelper
     formatted_number = number_to_phone(int_num, area_code: true)
     return formatted_number
   end
+ 
 end

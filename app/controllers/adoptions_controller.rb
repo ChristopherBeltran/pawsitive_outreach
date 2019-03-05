@@ -5,7 +5,12 @@ class AdoptionsController < ApplicationController
 
   def new
     @pet = Pet.find_by(id: params[:pet_id])
+    if @pet.users.count == 1
+      redirect_to pets_path
+      #error for this pet already being adopted
+    else
     @adoption = Adoption.new
+    end
   end
 
   def foster
@@ -19,6 +24,7 @@ class AdoptionsController < ApplicationController
         redirect_to edit_user_pet_path(current_user, @pet)
       else
         redirect_to pets_path
+        #error for invalid adoption details
     end
   end
 
@@ -30,7 +36,8 @@ class AdoptionsController < ApplicationController
 
   def destroy
     current_user.pets.delete(Pet.find_by(id: params[:id]))
-    redirect_to user_pets_path(current_user)
+    #redirect_to user_pets_path(current_user)
+    redirect_to user_path(current_user)
   end
 
 private

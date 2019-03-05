@@ -1,0 +1,13 @@
+<h1> Edit Profile </h1>
+<%= form_for current_user do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+<br>
+<%= f.label :email %>
+<%= f.email_field :email %>
+<br>
+<%= f.label :phone_number %>
+<%= f.telephone_field :phone_number %>
+<br>
+<%= f.submit  "Update Profile" %>
+<%end%>
