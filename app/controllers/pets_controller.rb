@@ -1,5 +1,5 @@
 class PetsController < ApplicationController
-  before_action :user_authenticate
+  before_action :user_authenticate, :authorize_user, only: [:edit]
 
   def index
     if params[:user_id] == nil
@@ -12,11 +12,7 @@ class PetsController < ApplicationController
   end
 
   def edit
-    if current_user == User.find_by(id: params[:user_id])
       @pet = Pet.find_by(id: params[:id])
-    else
-      redirect_to user_path(current_user)
-    end
   end
 
   def update

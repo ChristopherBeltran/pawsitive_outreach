@@ -6,8 +6,8 @@ class AdoptionsController < ApplicationController
   def new
     @pet = Pet.find_by(id: params[:pet_id])
     if @pet.users.count == 1
+      flash[:notice] = "Pet is already adopted!"
       redirect_to pets_path
-      #error for this pet already being adopted
     else
     @adoption = Adoption.new
     end

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :user_authenticate, only: [:show, :edit]
+  before_action :user_authenticate, only: [:show, :edit], :authorize_user, only: [:show, :edit, :update]
 
   def new
     @user = User.new
@@ -8,8 +8,13 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     @user.save
-    session[:user_id] = @user.id
-    redirect_to user_path(@user)
+      if @user
+        session[:user_id] = @user.id
+        flash[:notice] = "Account successfully created!"
+        redirect_to user_path(@user)
+      else
+        render :new
+      end
   end
 
 
@@ -17,11 +22,18 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = current_user
   end
 
   def update
-    current_user.update(user_params)
-    redirect_to user_path(current_user)
+    @user = current_user
+    @user.assign_attributes(user_params)
+    if @user.valid?
+      @user.save(user_params)
+      redirect_to redirect_to user_path(current_user)
+    else
+      render :edit
+    end
   end
 
 
