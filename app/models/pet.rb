@@ -1,4 +1,5 @@
 class Pet < ActiveRecord::Base
+  include Titleize
   has_many :adoptions
   has_many :users, through: :adoptions
   has_many :pet_breeds
@@ -7,6 +8,8 @@ class Pet < ActiveRecord::Base
   validates :name, presence: true
   validates :age, presence: true
   validates_inclusion_of :age, :in => 1..30
+  before_save :tileize_name
+  before_create :tileize_name
 
   def breed_attributes=(breed_attributes)
       if breed_attributes[:name] != ""
@@ -47,7 +50,6 @@ class Pet < ActiveRecord::Base
   def self.without_owner
     Pet.joins('left outer join adoptions on adoptions.pet_id = pets.id').where('adoptions.id is null')
   end
-
 
 
 end

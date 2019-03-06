@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include Titleize
   has_secure_password
   has_many :adoptions
   has_many :pets, through: :adoptions
@@ -6,6 +7,8 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :email, presence: true
   validates :email, uniqueness: true
+  before_save :tileize_name
+  before_create :tileize_name
 
   def self.find_or_create_from_auth_hash(auth)
     where(provider: auth.provider, uid: auth.id).first_or_initialize.tap do |user|
@@ -23,10 +26,6 @@ class User < ActiveRecord::Base
         return adoption
       end
     end
-  end 
-
-
-
-
+  end
 
 end

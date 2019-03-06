@@ -30,8 +30,13 @@ class Admin::PetsController < ApplicationController
 
   def update
     @pet = Pet.find_by(id: params[:id])
-    @pet.update(pet_params)
-    redirect_to admin_pets_path
+    @pet.assign_attributes(pet_params)
+    if @pet.valid?
+      @pet.save(pet_params)
+      redirect_to admin_pets_path
+    else
+      render :edit
+    end
   end
 
   def destroy
