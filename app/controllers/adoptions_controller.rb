@@ -13,9 +13,6 @@ class AdoptionsController < ApplicationController
     end
   end
 
-  def foster
-  end
-
   def create
     @adoption = Adoption.create(adoption_params)
     @adoption.save

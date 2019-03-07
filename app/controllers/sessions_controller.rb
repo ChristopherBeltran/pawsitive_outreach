@@ -6,19 +6,31 @@ class SessionsController < ApplicationController
   def create
     if request.referrer.include? "admin"
       @admin = Admin.find_by(email: params[:admin][:email])
-      return head(:forbidden) unless @admin.authenticate(params[:admin][:password])
+      if @admin && @admin.authenticate(params[:admin][:password])
       session[:admin_id] = @admin.id
       redirect_to admin_pets_path
+      else
+        flash[:notice] = "Invalid email or password. Please try again."
+      render :new
+      end
     elsif
       request.env['omniauth.auth']
       @user = User.find_or_create_from_auth_hash(env['omniauth.auth'])
+      if @user
       session[:user_id] = @user.id
       redirect_to user_path(@user)
+      else
+        render :new
+      end
     else
       @user = User.find_by(email: params[:user][:email])
-      return head(:forbidden) unless @user.authenticate(params[:user][:password])
+      if @user && @user.authenticate(params[:user][:password])
       session[:user_id] = @user.id
       redirect_to user_path(@user)
+      else
+        flash[:notice] = "Invalid email or password. Please try again."
+      render :new
+     end 
     end
   end
 
@@ -31,6 +43,7 @@ class SessionsController < ApplicationController
     @current_user = nil
     session.delete(:admin_id)
     @current_admin = nil
+    flash[:notice] = "You've been successfully signed out"
     redirect_to root_path
 end
 
