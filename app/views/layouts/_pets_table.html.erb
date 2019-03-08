@@ -13,7 +13,6 @@
   <td><%=pet.display_breed%></td>
   <% adoption = current_user.find_adoption_by_pet(pet) %>
   <td><%=adoption.adoption_date%></td>
-  <td><%= link_to "End Adoption?", user_adoption_path(current_user, adoption), class: 'button', method: 'delete' %></td>
   <%end%>
 </tr>
 

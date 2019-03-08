@@ -1,5 +1,5 @@
 class PetsController < ApplicationController
-  before_action :user_authenticate, :authorize_user, only: [:edit]
+  before_action :user_authenticate
 
   def index
     if params[:user_id] == nil

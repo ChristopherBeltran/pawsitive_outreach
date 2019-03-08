@@ -4,12 +4,18 @@ class User < ActiveRecord::Base
   has_secure_password
   has_many :adoptions
   has_many :pets, through: :adoptions
-  validates :phone_number, length: { is: 10 }
+  #validates :phone_number, length: { is: 10 }
+  validates_format_of :phone_number, with: /\A(\d{10}|\(?\d{3}\)?[-. ]\d{3}[-.]\d{4})\z/
   validates :name, presence: true
   validates :email, presence: true
   validates :email, uniqueness: true
   before_save :tileize_name
   before_create :tileize_name
+
+
+  def phone_number=(phone_number)
+  super(phone_number.blank? ? nil : phone_number.gsub(/[^\w\s]/, ''))
+  end
 
   def self.find_or_create_from_auth_hash(auth)
     where(provider: auth.provider, uid: auth.id).first_or_initialize.tap do |user|

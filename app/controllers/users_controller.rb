@@ -1,20 +1,18 @@
 class UsersController < ApplicationController
   before_action :user_authenticate, only: [:show, :edit]
-  before_action :authorize_user, only: [:show, :edit, :update]
 
   def new
     @user = User.new
   end
 
   def create
-    @user = User.create(user_params)
-    @user.save
-      if @user
-        session[:user_id] = @user.id
-        flash[:notice] = "Account successfully created!"
-        redirect_to user_path(@user)
-      else
-        render :new
+    @user = User.new(user_params)
+    if @user.save
+    session[:user_id] = @user.id
+    flash[:notice] = "Account successfully created!"
+    redirect_to user_path(@user)
+  else
+    render :new
       end
   end
 
@@ -31,7 +29,7 @@ class UsersController < ApplicationController
     @user.assign_attributes(user_params)
     if @user.valid?
       @user.save(user_params)
-      redirect_to redirect_to user_path(current_user)
+      redirect_to user_path(current_user)
     else
       render :edit
     end
@@ -47,6 +45,15 @@ private
 
 def user_params
   params.require(:user).permit(:email, :name, :phone_number, :password, :password_confirmation)
+end
+
+def valid_params?
+  params[:user].each do |key, val|
+    if val == nil || val == ''
+      return false
+    end
+  end
+
 end
 
 end
