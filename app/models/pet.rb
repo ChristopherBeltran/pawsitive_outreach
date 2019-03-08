@@ -1,5 +1,6 @@
 class Pet < ActiveRecord::Base
   include Titleize
+  include Displayname
   has_many :adoptions
   has_many :users, through: :adoptions
   has_many :pet_breeds
@@ -31,15 +32,6 @@ class Pet < ActiveRecord::Base
       end
     end
   end
-
-  def display_name
-    if self.name[-1] == "s"
-      "#{self.name}'"
-    else
-      "#{self.name}'s"
-    end
-  end
-
   #Class Scope Method
   def self.from_breed(breed)
     params = breed.name

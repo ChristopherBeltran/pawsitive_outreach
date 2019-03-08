@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include Titleize
+  include Displayname
   has_secure_password
   has_many :adoptions
   has_many :pets, through: :adoptions

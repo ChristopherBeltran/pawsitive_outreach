@@ -3,7 +3,7 @@
 <p> Head over to <%= link_to "View Available Pets", pets_path%>, to adopt a new furry friend! </p>
 
 <% elsif @user_pets %>
-<h1><%=current_user.name%>'s Pets</h1>
+<h1><%=current_user.display_name%> Pets</h1>
 <%= render "layouts/pets_table" %>
 
 

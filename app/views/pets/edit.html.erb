@@ -3,5 +3,9 @@
 <%= form_for @pet do |f| %>
 <%= f.label :name %>
 <%= f.text_field :name %>
+<br>
 <%= f.submit "Update #{@pet.name}" %>
+<br>
+<%= link_to "No Thanks", user_pets_path(current_user), class: 'button' %>
+
 <% end %>
