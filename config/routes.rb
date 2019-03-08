@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'static#welcome'
   get  '/login', :to => 'sessions#new', :as => :login
   post '/login', :to => 'sessions#create'
-  get '/auth/facebook/callback', :to => 'sessions#create'
+  get 'auth/google_oauth2/callback', :to => 'sessions#create'
   get '/auth/failure', :to => 'sessions#failure'
   delete '/logout', to: 'sessions#destroy', as: 'logout'
   get '/admin/login', to: 'sessions#new', :as => :admin_login
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :pets
     resources :breeds
   end
-
+  
   resources :pets do
     resources :adoptions, only: [:new, :create]
   end

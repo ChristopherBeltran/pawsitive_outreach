@@ -4,24 +4,23 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if request.referrer.include? "admin"
-      @admin = Admin.find_by(email: params[:admin][:email])
-      if @admin && @admin.authenticate(params[:admin][:password])
-      session[:admin_id] = @admin.id
-      redirect_to admin_pets_path
-      else
-        flash[:notice] = "Invalid email or password. Please try again."
-      render :new
-      end
-    elsif
-      request.env['omniauth.auth']
-      @user = User.find_or_create_from_auth_hash(env['omniauth.auth'])
-      if @user
+      if request.env['omniauth.auth']
+      @user = User.find_or_create_from_auth_hash(request.env['omniauth.auth'])
+      if @user.save
       session[:user_id] = @user.id
       redirect_to user_path(@user)
       else
         render :new
       end
+    elsif request.referrer.include? "admin"
+        @admin = Admin.find_by(email: params[:admin][:email])
+        if @admin && @admin.authenticate(params[:admin][:password])
+        session[:admin_id] = @admin.id
+        redirect_to admin_pets_path
+        else
+          flash[:notice] = "Invalid email or password. Please try again."
+        render :new
+        end
     else
       @user = User.find_by(email: params[:user][:email])
       if @user && @user.authenticate(params[:user][:password])
@@ -30,7 +29,7 @@ class SessionsController < ApplicationController
       else
         flash[:notice] = "Invalid email or password. Please try again."
       render :new
-     end 
+     end
     end
   end
 
