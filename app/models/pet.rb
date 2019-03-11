@@ -43,5 +43,13 @@ class Pet < ActiveRecord::Base
     Pet.joins('left outer join adoptions on adoptions.pet_id = pets.id').where('adoptions.id is null')
   end
 
+  def display_ownership
+    if self.users.count == 0
+      return "N"
+    else
+      return "Y"
+    end
+  end
+
 
 end

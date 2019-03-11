@@ -23,6 +23,9 @@
     <th>Name</th>
     <th>Age</th>
     <th>Breed</th>
+ <% if current_admin %>
+    <th>Owned?</th>
+    <%end%>
   </tr>
 <% @pets.each do |pet| %>
   <tr>
@@ -30,7 +33,10 @@
   <td><%= pet.age %></td>
   <td><%=pet.display_breed%></td>
   <% if current_admin %>
+  <td><%=pet.display_ownership%></td>
+  <% if pet.display_ownership == "N" %>
   <td><%= link_to "Edit Pet", edit_admin_pet_path(pet), class: 'button' %></td>
+  <%end%>
   <% else %>
   <td><%= link_to "Adopt?", new_pet_adoption_path(pet), class: 'button' %></td>
   <%end%>
