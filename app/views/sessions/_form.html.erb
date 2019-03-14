@@ -1,7 +1,7 @@
 <% if admin_page? %>
 <h2> Admin Login </h2>
 <br>
-<form action="/login" method="POST" style="border:1px solid #ccc">
+<form action="/login" method="POST" style="border:1px solid #ccc" class="col-sm-4">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
 <label for="email"><b>Email:</b></label>
@@ -21,6 +21,7 @@
   <br>
   <%= form_tag ({controller: 'sessions', action: 'create', method: 'post'}) do %>
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <div class="col-sm-4"
 
   <label for="email"><b>Email:</b></label>
   <input type="text" placeholder="Enter Email" name=user[email]>
@@ -30,16 +31,23 @@
   <input type="password" placeholder="Enter Password" name=user[password]>
   <br>
   <br>
-  <button type="submit">Login</button>
+  <button type="submit" class="col-sm-4">Login</button>
+  </div>
   <br>
   <br>
-  <p> OR   <%= link_to('Log in with Google!', '/auth/google_oauth2') %> </p>
+  <div class="btn white darken-4 col-sm-4">
+     <a href="/auth/google_oauth2" style="text-transform:none">
+         <div class="left">
+             <img width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+         </div>
+         Login with Google
+     </a>
+</div>
   <br>
   <br>
 
   <br>
-  <p> Admin? Log in <%= link_to('here', admin_login_url) %> </p>
-
+  <p><%= link_to('Admin? Log in here', admin_login_url, :class => "btn col-sm-4") %> </p>
   <%end%>
 
   <%end%>

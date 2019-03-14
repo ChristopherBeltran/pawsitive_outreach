@@ -15,7 +15,8 @@ class Admin::PetsController < ApplicationController
     if @pet.save
       redirect_to admin_pets_path
     else
-      redirect_to new_admin_pet_path
+      #flash[:notice] = "Pet details invalid"
+      render :new
       #error for pet being invalid
     end
   end
