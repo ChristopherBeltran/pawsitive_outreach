@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :user_authenticate, :user_signed_in?, :admin_authenticate, :current_admin, :admin_signed_in?
 
   def user_authenticate
-    redirect_to :login unless user_signed_in?
+    redirect_to root_path unless user_signed_in?
   end
 
   def current_user
@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def admin_authenticate
-    redirect_to :login unless admin_signed_in?
+    redirect_to root_path unless admin_signed_in?
   end
 
   def current_admin
