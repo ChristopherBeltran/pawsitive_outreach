@@ -4,6 +4,7 @@
     <th>Name</th>
     <th>Age</th>
     <th>Full-Bred</th>
+    <th>Owned?</th>
   </tr>
 <% @pets.each do |pet| %>
   <tr>
@@ -18,6 +19,9 @@
   <% else %>
   <td> Y </td>
   <% end %>
-  <td><%= link_to "Edit Pet", edit_admin_pet_path(pet), class: 'button' %></td>
+  <td><%=pet.display_ownership%></td>
+  <% if pet.display_ownership == "N" %>
+  <td><%= link_to "Edit Pet", edit_admin_pet_path(pet), :class => "btn col-sm-4" %></td>
   <%end%>
 </tr>
+<%end%>

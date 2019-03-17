@@ -10,7 +10,7 @@
   <td><%= name %></td>
   <td><%= count %></td>
   <% breed = Breed.find_by(name: name) %>
-  <td><%= link_to "View Pets", admin_breed_path(breed), class: 'button' %></td>
+  <td><%= link_to "View Pets", admin_breed_path(breed), :class => "btn col-sm-4" %></td>
   <%end%>
 </tr>
 <p style="border:1px solid #ccc"></p>

@@ -21,9 +21,10 @@
 <%= f.label :age %>
 <%= f.number_field :age %>
 <br>
-<%= f.label :breed %>
+<%= collection_check_boxes :pet, :breed_ids, Breed.all, :id, :name do |b| %>
+    <div> <%= b.check_box %><%= b.label { b.text } %></div>
+    <% end %>
 <br>
-<%= collection_check_boxes :pet, :breed_ids, Breed.all, :id, :name %>
 <%= f.fields_for :breed_attributes, @pet.breeds.build do |breeds_fields| %>
 <br>
 <%= f.label "New breed?" %>

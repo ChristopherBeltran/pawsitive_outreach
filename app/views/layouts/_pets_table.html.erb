@@ -35,10 +35,10 @@
   <% if current_admin %>
   <td><%=pet.display_ownership%></td>
   <% if pet.display_ownership == "N" %>
-  <td><%= link_to "Edit Pet", edit_admin_pet_path(pet), class: 'button' %></td>
+  <td><%= link_to "Edit Pet", edit_admin_pet_path(pet), :class => "btn col-sm-4" %></td>
   <%end%>
   <% else %>
-  <td><%= link_to "Adopt?", new_pet_adoption_path(pet), class: 'button' %></td>
+  <td><%= link_to "Adopt?", new_pet_adoption_path(pet), :class => "btn col-sm-4" %></td>
   <%end%>
   <%end%>
 </tr>
