@@ -31,6 +31,11 @@ Specs:
   *Nested pets/:id/adoption/new resource as well as admin/pets/new routes*
 - [x] Include form display of validation errors (form URL e.g. /recipes/new)
 
+**Admin login credentials**
+*myemail@gmail.com*
+*password*
+
+
 Confirm:
 - [ ] The application is pretty DRY
 - [ ] Limited logic in controllers
