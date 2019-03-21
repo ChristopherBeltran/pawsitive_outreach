@@ -47,13 +47,4 @@ def user_params
   params.require(:user).permit(:email, :name, :phone_number, :password, :password_confirmation)
 end
 
-def valid_params?
-  params[:user].each do |key, val|
-    if val == nil || val == ''
-      return false
-    end
-  end
-
-end
-
 end
