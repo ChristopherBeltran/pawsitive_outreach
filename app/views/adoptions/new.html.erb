@@ -1,3 +1,18 @@
+<div id="error_explanation">
+  <h2>
+    <% if @adoption.errors.count > 0 %>
+    <%= pluralize(@adoption.errors.count, "error") %>
+    prohibited this adoption:
+  </h2>
+
+  <ul>
+  <% @adoption.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  <%end%>
+  </ul>
+</div>
+
 <h1> <%=@pet.display_name%> Adoption Agreement </h1>
 
 <%= form_for([@pet, @adoption]) do |f| %>
