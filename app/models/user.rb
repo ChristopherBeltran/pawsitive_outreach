@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   end
 
   def phone_number=(phone_number)
-  super(phone_number.blank? ? nil : phone_number.gsub(/[^\w\s]/, ''))
+    super(phone_number.blank? ? nil : phone_number.gsub(/[^\w\s]/, ''))
   end
 
   def self.find_or_create_from_auth_hash(auth)

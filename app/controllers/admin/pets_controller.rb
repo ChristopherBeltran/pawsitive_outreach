@@ -1,5 +1,6 @@
 class Admin::PetsController < ApplicationController
   before_action :admin_authenticate
+  before_action :find_pet, only: [:show, :edit, :update]
 
   def index
     @pets = Pet.all.order(:name)
@@ -22,18 +23,21 @@ class Admin::PetsController < ApplicationController
   end
 
   def show
-    @pet = Pet.find_by(id: params[:id])
+    #@pet = Pet.find_by(id: params[:id])
+    #find_pet
   end
 
   def edit
-    @pet = Pet.find_by(id: params[:id])
+    #@pet = Pet.find_by(id: params[:id])
+    #find_pet
   end
 
   def update
-    @pet = Pet.find_by(id: params[:id])
+    #@pet = Pet.find_by(id: params[:id])
     @pet.assign_attributes(pet_params)
     if @pet.valid?
       @pet.save(pet_params)
+      flash[:notice] = "#{@pet.name} successfully updated!"
       redirect_to admin_pets_path
     else
       render :edit
@@ -47,6 +51,11 @@ private
 def pet_params
   params.require(:pet).permit(:name, :age, breed_ids:[], breed_attributes: [:name])
 end
+
+def find_pet
+  @pet = Pet.find_by(id: params[:id])
+end
+
 
 
 end
