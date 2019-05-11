@@ -11,11 +11,16 @@ class PetsController < ApplicationController
     end
   end
 
+  def show
+    @pet = Pet.find_by(id: params[:id])
+  end 
+
+
   def edit
       @pet = Pet.find_by(id: params[:id])
       @pet.users.each do |user|
         redirect_to root_path unless user.id == current_user.id
-      end 
+      end
   end
 
   def update

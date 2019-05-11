@@ -14,4 +14,5 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
-//= require toastr 
+//= require toastr
+//= require updates
