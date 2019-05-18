@@ -15,7 +15,6 @@ class PetsController < ApplicationController
     @pet = Pet.find_by(id: params[:id])
   end 
 
-
   def edit
       @pet = Pet.find_by(id: params[:id])
       @pet.users.each do |user|
