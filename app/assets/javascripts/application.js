@@ -15,4 +15,4 @@
 //= require turbolinks
 //= require_tree .
 //= require toastr
-//= require updates
+//= require pawsitive_outreach

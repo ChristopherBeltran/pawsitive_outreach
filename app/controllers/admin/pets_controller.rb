@@ -3,8 +3,9 @@ class Admin::PetsController < ApplicationController
   before_action :find_pet, only: [:show, :edit, :update]
 
   def index
-    @pets = Pet.all.order(:name)
+    pets = Pet.all.order(:name)
     #Class Scope Method
+    render json: pets
   end
 
   def new

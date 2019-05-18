@@ -22,3 +22,12 @@ class Pet {
     };
 }
 
+
+//API calls
+
+function adminPetsIndex() {
+    $.get("/admin/pets", function(data) {
+        console.log(data);
+    });
+};
+
