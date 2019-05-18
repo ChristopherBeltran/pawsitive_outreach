@@ -33,6 +33,7 @@ gem 'thin'
 gem 'omniauth-google-oauth2'
 gem 'rubysl-securerandom', '~> 2.0'
 gem 'figaro'
+gem 'active_model_serializers'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
