@@ -22,18 +22,25 @@ class Pet {
         this.breeds = obj.breeds;
         this.users = obj.users;
     };
-    //Pet.prototype.postHTML = function () {
-    //    if (this.breeds.length > 1) {
-    //        let pBreeds = this.breeds.map(breed)
-    //    }
-    //    return (`
-    //        <tr>
-    //            <td>${this.name}</td>
-    //            <td>${this.age}</td>
-    //            <td>${this.breeds}</td>
-    //        </tr>
-    //    `)
-    //}
+    prototypePostHTML () {
+        if (this.breeds.length > 1) {
+            let br = []
+            for(var i = 0; i < this.breeds.length; i++){
+                br.push(this.breeds[i].name);
+            };
+            var pBreeds = br.join(", ");
+            debugger;
+            } else {
+                var pBreeds = this.breeds[0].name;
+            };
+        return (`
+            <tr>
+                <td>${this.name}</td>
+                <td>${this.age}</td>
+                <td>${pBreeds}</td>
+            </tr>
+        `);
+    };
 };
 
 
@@ -42,7 +49,6 @@ class Pet {
 function adminPetsIndex() {
     $.getJSON("/admin/pets.json", function(data) {
         let pets = data;
-        debugger;
         let table = `<table style="width:100%">
         <tr>
             <th>Name</th>
@@ -50,6 +56,11 @@ function adminPetsIndex() {
             <th>Breed</th>
             <th>Owned?</th>
         </tr>`;
-
-
-    })}
+        $("#admin_pets_table").html(table);
+        for(var i =0; i < pets.length; i++ ){
+            let newPet = new Pet(pets[i]);
+            let petHTML = newPet.prototypePostHTML();
+            $("#admin_pets_table").append(petHTML);
+            }; 
+    })
+    }
