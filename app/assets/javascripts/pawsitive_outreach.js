@@ -5,23 +5,6 @@ class Breed {
         this.petId = petId;
         this.breedId = breedId;
     };
-
-      BreedCreator = {
-        createBreed: function () {
-          let newBreed = {};
-          Breed.apply(newBreed, arguments);
-          this.allBreeds.push(newBreed); 
-          return newBreed;
-        },
-      
-        allBreeds: [],
-      
-        forEachBreed: function (action) {
-          for (let i = 0; i < this.allBreeds.length; i++){
-            action.call(this.allBreeds[i]);
-          }
-        } 
-      };
 };
 
 class User {
@@ -36,33 +19,37 @@ class Pet {
         this.id = obj.id;
         this.name = obj.name;
         this.age = obj.age;
+        this.breeds = obj.breeds;
+        this.users = obj.users;
     };
-
-    PetCreator = {
-        createPet: function () {
-          let newPet = {};
-          Pet.apply(newPet, arguments);
-          this.allPets.push(newPet); 
-          return newPet;
-        },
-      
-        allPets: [],
-      
-        forEachPet: function (action) {
-          for (let i = 0; i < this.allPets.length; i++){
-            action.call(this.allPets[i]);
-          }
-        } 
-      };
+    //Pet.prototype.postHTML = function () {
+    //    if (this.breeds.length > 1) {
+    //        let pBreeds = this.breeds.map(breed)
+    //    }
+    //    return (`
+    //        <tr>
+    //            <td>${this.name}</td>
+    //            <td>${this.age}</td>
+    //            <td>${this.breeds}</td>
+    //        </tr>
+    //    `)
+    //}
 };
+
 
 //API calls
 
 function adminPetsIndex() {
     $.getJSON("/admin/pets.json", function(data) {
         let pets = data;
-        pets.map( p => 
-            PetCreator.createPet(p.id, p.name, p.age))
-    });
-};
+        debugger;
+        let table = `<table style="width:100%">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Breed</th>
+            <th>Owned?</th>
+        </tr>`;
 
+
+    })}
