@@ -26,7 +26,7 @@ class Pet {
 //API calls
 
 function adminPetsIndex() {
-    $.get("/admin/pets", function(data) {
+    $.getJSON("/admin/pets.json", function(data) {
         console.log(data);
     });
 };

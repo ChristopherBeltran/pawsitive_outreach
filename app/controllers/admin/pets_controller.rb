@@ -5,7 +5,10 @@ class Admin::PetsController < ApplicationController
   def index
     pets = Pet.all.order(:name)
     #Class Scope Method
-    render json: pets
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: pets, status: 200 }
+    end 
   end
 
   def new

@@ -1,6 +1,8 @@
 <h1> Pet List </h1>
 <p style="border:1px solid #ccc"></p>
-<%= render "layouts/pets_table" %>
-
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(adminPetsIndex);
+    </script>
+<div id="admin_pets_table"></div>
 
 <p><%= link_to " Add New Pet", new_admin_pet_path, :class => "btn col-sm-2"%> </p>

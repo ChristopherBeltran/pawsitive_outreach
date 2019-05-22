@@ -34,7 +34,7 @@ gem 'omniauth-google-oauth2'
 gem 'rubysl-securerandom', '~> 2.0'
 gem 'figaro'
 gem 'active_model_serializers'
-
+gem 'jquery-rails'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
