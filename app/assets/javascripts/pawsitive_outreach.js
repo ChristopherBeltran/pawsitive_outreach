@@ -29,7 +29,6 @@ class Pet {
                 br.push(this.breeds[i].name);
             };
             var pBreeds = br.join(", ");
-            debugger;
             } else {
                 var pBreeds = this.breeds[0].name;
             };
@@ -60,7 +59,7 @@ function adminPetsIndex() {
         for(var i =0; i < pets.length; i++ ){
             let newPet = new Pet(pets[i]);
             let petHTML = newPet.prototypePostHTML();
-            $("#admin_pets_table").append(petHTML);
+            $("tbody").append(petHTML);
             }; 
     })
     }
