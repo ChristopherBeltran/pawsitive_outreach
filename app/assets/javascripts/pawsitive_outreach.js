@@ -32,11 +32,17 @@ class Pet {
             } else {
                 var pBreeds = this.breeds[0].name;
             };
+        if (this.users.length > 0){
+            var ownedStatus = "Y"
+            } else {
+                var ownedStatus = "N"
+            };
         return (`
             <tr>
                 <td>${this.name}</td>
                 <td>${this.age}</td>
                 <td>${pBreeds}</td>
+                <td>${ownedStatus}</td>
             </tr>
         `);
     };
