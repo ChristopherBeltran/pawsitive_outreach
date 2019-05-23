@@ -81,14 +81,16 @@ function addNewPet() {
         var values = $(this).serialize();
 
         var pet = $.post('/admin/pets', values);
-
         pet.done(function(data) {
             $('#pet_form').empty();
-            var pet = data;
-            var newPetHTML = `<h2>${pet.name} successfully created!</h2>
-                <p>Age: ${pet.age}</p>`
-            
-
+            let newPet = new Pet(data);;
+            var newPetHTML = `<h2>${newPet.name} Successfully created!</h2>
+                <br>
+                <p>Age: ${newPet.age}</p>
+                <br>
+                <p>Breed(s): ${newPet.breeds[0].name}</p>
+                `;
+            $('#pet_form').append(newPetHTML);
         })
 })
-}
+};

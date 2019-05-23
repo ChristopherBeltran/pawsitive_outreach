@@ -17,10 +17,8 @@ class Admin::PetsController < ApplicationController
 
   def create
     @pet = Pet.create(pet_params)
-    if @pet.save
-      redirect_to admin_pets_path
-    else
-      #flash[:notice] = "Pet details invalid"
+    render json: @pet, status: 201
+    if !@pet.save
       render :new
       #error for pet being invalid
     end
