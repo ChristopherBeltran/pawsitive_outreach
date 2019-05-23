@@ -82,15 +82,26 @@ function addNewPet() {
 
         var pet = $.post('/admin/pets', values);
         pet.done(function(data) {
-            $('#pet_form').empty();
+            $('#new_pet')[0].reset();
+            $('#pet_form')[0].style.display = "none";
             let newPet = new Pet(data);;
             var newPetHTML = `<h2>${newPet.name} Successfully created!</h2>
                 <br>
                 <p>Age: ${newPet.age}</p>
                 <br>
                 <p>Breed(s): ${newPet.breeds[0].name}</p>
+                <br>
+                <input type="button" id="create_next_pet" value="Create Another Pet">
+                <br>
+                <br>
+                <a href="/admin/pets" class="button" id="pets_index_button">Return To Pets Page</a>
                 `;
-            $('#pet_form').append(newPetHTML);
+            $('#created_pet').append(newPetHTML);
+            $('#create_next_pet').on('click', function () {
+                $('#created_pet').empty()
+                $('#pet_form')[0].style.display = "block"
+                $('#new_pet_button').prop('disabled', false);
+            })
         })
-})
+    })
 };
