@@ -51,6 +51,8 @@ class Pet {
 
 //API calls
 
+//admin/pets page
+
 function adminPetsIndex() {
     $.getJSON("/admin/pets.json", function(data) {
         let pets = data;
@@ -68,4 +70,25 @@ function adminPetsIndex() {
             $("tbody").append(petHTML);
             }; 
     })
-    }
+}
+
+//admin/pets/new page
+
+function addNewPet() {
+    $('#new_pet').submit(function(event) {
+        //prevent form from submitting the default way
+        event.preventDefault();
+        var values = $(this).serialize();
+
+        var pet = $.post('/admin/pets', values);
+
+        pet.done(function(data) {
+            $('#pet_form').empty();
+            var pet = data;
+            var newPetHTML = `<h2>${pet.name} successfully created!</h2>
+                <p>Age: ${pet.age}</p>`
+            
+
+        })
+})
+}
