@@ -136,12 +136,16 @@ function adminBreedsIndex() {
 }
 
 //admin/breeds/show page
-
 function adminBreedsShow(val) {
-    $.getJSON(`/admin/breeds/${val}.json`), function(data) {
-    let breed = data;
-    console.log(breed)
-    let header = `<h1>${breed.name}</h1>`
-        $('#breed-header').append(header);
-    }
+    $.getJSON(`/admin/breeds/${val}.json`, function (data) {
+        var saveData = data;
+        localStorage.setItem('breed', JSON.stringify(saveData));
+    });
 }
+
+function displayBreed() {
+    let breed = JSON.parse(localStorage.getItem('breed'));
+    let newBreed = new Breed(breed);
+    let header = `<h1>${breed.name}'s</h1>`
+        $("#breed-header").append(header);
+};
