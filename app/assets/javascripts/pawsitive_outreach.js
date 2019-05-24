@@ -11,7 +11,7 @@ class Breed {
             <tr>
                 <td>${this.name}</td>
                 <td>${this.pets.length}</td>
-                <td><a href='/admin/breeds/${this.id}'>View Pets</a></td>
+                <td><a href='/admin/breeds/${this.id}' onclick='adminBreedsShow(${this.id})'>View Pets</a></td>
             </tr>
         `);
     }
@@ -133,4 +133,15 @@ function adminBreedsIndex() {
             $("tbody").append(breedHTML);
             }; 
     })
+}
+
+//admin/breeds/show page
+
+function adminBreedsShow(val) {
+    $.getJSON(`/admin/breeds/${val}.json`), function(data) {
+    let breed = data;
+    console.log(breed)
+    let header = `<h1>${breed.name}</h1>`
+        $('#breed-header').append(header);
+    }
 }

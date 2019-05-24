@@ -20,7 +20,7 @@ class Admin::BreedsController < ApplicationController
     respond_to do |format|
       format.html { render :show }
       format.json { render json: breed, status: 200 }
-    end 
+    end
   end
 
   def edit
