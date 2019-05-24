@@ -3,6 +3,10 @@ class Admin::BreedsController < ApplicationController
 
   def index
     @breeds = Breed.all
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @breeds, status: 200 }
+    end 
   end
 
   def new
