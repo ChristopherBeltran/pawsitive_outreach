@@ -25,8 +25,8 @@ class Admin::PetsController < ApplicationController
   end
 
   def show
-    #@pet = Pet.find_by(id: params[:id])
-    #find_pet
+    pet = Pet.find_by(id: params[:id])
+    render json: pet, status: 200
   end
 
   def edit

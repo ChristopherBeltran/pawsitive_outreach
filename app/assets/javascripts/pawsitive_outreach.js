@@ -6,7 +6,7 @@ class Breed {
         this.pets = obj.pets;
     };
 
-    prototypeBreedPostHTML() {
+    prototypeBreedIndexHTML() {
         return (`
             <tr>
                 <td>${this.name}</td>
@@ -15,6 +15,36 @@ class Breed {
             </tr>
         `);
     }
+
+    prototypeBreedShowHTML() {
+        let pets = [];
+
+        for(var i = 0; i < this.pets.length; i++) {
+            $.getJSON(`/admin/pets/${this.pets[i]["id"]}.json`, function(data) {
+            let pet = data;
+            var newPet = new Pet(pet);
+                if(newPet.breeds.length === 1){
+                    var br = "Y";
+                } else {
+                    newPet.breeds.forEach(function (breed) {
+                        if (breed.name != this.name) {
+                            var br = `N(Mixed with ${breed.name})`;
+                        }
+                    })
+                };
+            let owned = newPet.ownedStatus();
+            var petHTML = `
+            <tr>
+                <td>${newPet.name}</td>
+                <td>${newPet.age}</td>
+                <td>${br}</td>
+                <td>${owned}</td>
+            </tr>`
+            $("tbody").append(petHTML);
+        });
+        }
+    }
+
 };
 
 class User {
@@ -32,6 +62,15 @@ class Pet {
         this.breeds = obj.breeds;
         this.users = obj.users;
     };
+
+    ownedStatus() {
+        if (this.users.length > 0){
+            return "Y"
+            } else {
+                return "N"
+            };
+    };
+
     prototypePostHTML() {
         if (this.breeds.length > 1) {
             let br = []
@@ -42,11 +81,7 @@ class Pet {
             } else {
                 var pBreeds = this.breeds[0].name;
             };
-        if (this.users.length > 0){
-            var ownedStatus = "Y"
-            } else {
-                var ownedStatus = "N"
-            };
+        var ownedStatus = this.ownedStatus();
         return (`
             <tr>
                 <td>${this.name}</td>
@@ -129,7 +164,7 @@ function adminBreedsIndex() {
         $("#admin-breeds-table").html(table);
         for(var i =0; i < breeds.length; i++ ){
             let newBreed = new Breed(breeds[i]);
-            let breedHTML = newBreed.prototypeBreedPostHTML();
+            let breedHTML = newBreed.prototypeBreedIndexHTML();
             $("tbody").append(breedHTML);
             }; 
     })
@@ -146,6 +181,16 @@ function adminBreedsShow(val) {
 function displayBreed() {
     let breed = JSON.parse(localStorage.getItem('breed'));
     let newBreed = new Breed(breed);
-    let header = `<h1>${breed.name}'s</h1>`
-        $("#breed-header").append(header);
+    let header = `<h1>${newBreed.name}'s</h1>`
+    $("#breed-header").append(header);
+    let breedTable = `<table style="width:100%">
+        <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Full-Bred</th>
+        <th>Owned?</th>
+        </tr>`; 
+    $("#breed-table").append(breedTable);
+
+    newBreed.prototypeBreedShowHTML();
 };
