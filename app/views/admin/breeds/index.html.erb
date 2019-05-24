@@ -1,16 +1,8 @@
 <h1> Breed List </h1>
 
-<table style="width:100%">
-  <tr>
-    <th>Breed</th>
-    <th># of pets</th>
-  </tr>
-<% Breed.pet_count.each do |name, count| %>
-  <tr>
-  <td><%= name %></td>
-  <td><%= count %></td>
-  <% breed = Breed.find_by(name: name) %>
-  <td><%= link_to "View Pets", admin_breed_path(breed), :class => "btn col-sm-4" %></td>
-  <%end%>
-</tr>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(adminBreedsIndex);
+    </script>
+<div id="admin-breeds-table">
+</div>
 <p style="border:1px solid #ccc"></p>

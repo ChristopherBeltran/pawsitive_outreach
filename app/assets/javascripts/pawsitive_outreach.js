@@ -1,10 +1,20 @@
 //classes
 class Breed {
-    constructor(name, petId, breedId) {
-        this.name = name;
-        this.petId = petId;
-        this.breedId = breedId;
+    constructor(obj) {
+        this.id = obj.id;
+        this.name = obj.name;
+        this.pets = obj.pets;
     };
+
+    prototypeBreedPostHTML() {
+        return (`
+            <tr>
+                <td>${this.name}</td>
+                <td>${this.pets.length}</td>
+                <td><a href='/admin/breeds/' + ${this.id}>View Pets</a></td>
+            </tr>
+        `);
+    }
 };
 
 class User {
@@ -22,7 +32,7 @@ class Pet {
         this.breeds = obj.breeds;
         this.users = obj.users;
     };
-    prototypePostHTML () {
+    prototypePostHTML() {
         if (this.breeds.length > 1) {
             let br = []
             for(var i = 0; i < this.breeds.length; i++){
@@ -105,3 +115,22 @@ function addNewPet() {
         })
     })
 };
+
+//admin/breeds page
+
+function adminBreedsIndex() {
+    $.getJSON("/admin/breeds.json", function(data) {
+        let breeds = data;
+        let table = `<table style="width:100%">
+        <tr>
+            <th>Breed</th>
+            <th># of Pets</th>
+        </tr>`;
+        $("#admin-breeds-table").html(table);
+        for(var i =0; i < breeds.length; i++ ){
+            let newBreed = new Breed(breeds[i]);
+            let breedHTML = newBreed.prototypeBreedPostHTML();
+            $("tbody").append(breedHTML);
+            }; 
+    })
+}
