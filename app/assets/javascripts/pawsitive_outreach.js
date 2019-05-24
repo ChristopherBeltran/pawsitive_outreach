@@ -11,7 +11,7 @@ class Breed {
             <tr>
                 <td>${this.name}</td>
                 <td>${this.pets.length}</td>
-                <td><a href='/admin/breeds/' + ${this.id}>View Pets</a></td>
+                <td><a href='/admin/breeds/${this.id}'>View Pets</a></td>
             </tr>
         `);
     }
