@@ -16,8 +16,11 @@ class Admin::BreedsController < ApplicationController
   end
 
   def show
-    @breed = Breed.find_by(id: params[:id])
-    @pets = Pet.from_breed(@breed)
+    breed = Breed.find_by(id: params[:id])
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: breed, status: 200 }
+    end 
   end
 
   def edit
