@@ -2,10 +2,10 @@ class Admin::BreedsController < ApplicationController
   before_action :admin_authenticate
 
   def index
-    @breeds = Breed.all
+    breeds = Breed.all.order(:name)
     respond_to do |format|
       format.html { render :index }
-      format.json { render json: @breeds, status: 200 }
+      format.json { render json: breeds, status: 200 }
     end 
   end
 

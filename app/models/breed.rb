@@ -6,11 +6,11 @@ class Breed < ActiveRecord::Base
   before_create :tileize_name
 
 
-def self.pet_count
-  counts = {}
-  self.all.each{|a| counts[a.name] = a.pets.count}
-  Hash[counts.sort_by{|k, v| v}.reverse]
-end
+#def self.pet_count
+#  counts = {}
+#  self.all.each{|a| counts[a.name] = a.pets.count}
+#  Hash[counts.sort_by{|k, v| v}.reverse]
+#end
 
 
 end
