@@ -35,6 +35,7 @@ class Breed {
             let owned = newPet.ownedStatus();
             var petHTML = `
             <tr>
+            <input id="${newPet.id}" type="hidden">
                 <td>${newPet.name}</td>
                 <td>${newPet.age}</td>
                 <td>${br}</td>
@@ -67,7 +68,7 @@ class Pet {
         if (this.users.length > 0){
             return "Y"
             } else {
-                return "N"
+                return `N - <a href='/admin/pets/${this.id}/edit'>Edit Pet</a>`;
             };
     };
 
@@ -193,4 +194,4 @@ function displayBreed() {
     $("#breed-table").append(breedTable);
 
     newBreed.prototypeBreedShowHTML();
-};
+    };
