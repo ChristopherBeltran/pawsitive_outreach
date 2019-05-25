@@ -3,9 +3,17 @@ class PetsController < ApplicationController
 
   def index
     if params[:user_id] == nil
-      @pets = Pet.without_owner.sort_by(&:name)
+      pets = Pet.without_owner.sort_by(&:name)
+      respond_to do |format|
+        format.html { render :index }
+        format.json { render json: pets, status: 200 }
+      end 
     elsif params[:user_id] != nil && current_user == User.find_by(id: params[:user_id])
-      @user_pets = current_user.pets
+      user_pets = current_user.pets
+      respond_to do |format|
+        format.html { render :index }
+        format.json { render json: user_pets, status: 200 }
+      end 
     else
       redirect_to user_path(current_user)
     end
