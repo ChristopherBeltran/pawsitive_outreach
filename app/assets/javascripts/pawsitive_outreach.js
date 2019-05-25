@@ -92,6 +92,27 @@ class Pet {
             </tr>
         `);
     };
+
+    nonAdminPetIndexHTML() {
+        if (this.breeds.length > 1) {
+            let br = []
+            for(var i = 0; i < this.breeds.length; i++){
+                br.push(this.breeds[i].name);
+            };
+            var pBreeds = br.join(", ");
+            } else {
+                var pBreeds = this.breeds[0].name;
+            };
+            return (`
+            <tr>
+                <td>${this.name}</td>
+                <td>${this.age}</td>
+                <td>${pBreeds}</td>
+                <td><a href='/pets/${this.id}/adoptions/new'>Adopt?</a></td>
+            </tr>
+        `);
+
+    };
 };
 
 
@@ -208,7 +229,24 @@ function petsIndex() {
             <th>Breed</th>
         </tr>`;
         $("#pets_table").html(table);
+        for(var i =0; i < pets.length; i++ ){
+            let newPet = new Pet(pets[i]);
+            let petHTML = newPet.nonAdminPetIndexHTML();
+            $("tbody").append(petHTML);
+        }
     })
+}
+
+function myPetsIndex() {
+    $.getJSON("/pets.json", function(data) {
+        let pets = data;
+        let table = `<table style="width:100%">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Breed</th>
+        </tr>`;
+})
 }
 
 
