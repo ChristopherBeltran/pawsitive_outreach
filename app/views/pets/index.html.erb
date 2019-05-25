@@ -1,18 +1,5 @@
-<% if @user_pets && @user_pets.count < 1 %>
-<h3> No pets yet! </h3>
-<p> Head over to <%= link_to "View Available Pets", pets_path%>, to adopt a new furry friend! </p>
-
-<% elsif @user_pets %>
-<h1><%=current_user.display_name%> Pets</h1>
-<%= render "layouts/pets_table" %>
-
-
-
-<% else %>
-<h1>Available Pets </h1>
-<%= render "layouts/pets_table" %>
-<br>
-<% end %>
+<div id="pets-index-header">
+</div>
 
 
 <script type="text/javascript" charset="utf-8">

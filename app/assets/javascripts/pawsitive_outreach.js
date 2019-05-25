@@ -195,3 +195,35 @@ function displayBreed() {
 
     newBreed.prototypeBreedShowHTML();
     };
+
+    //pets index page non-admin
+
+function petsIndex() {
+    $.getJSON("/pets.json", function(data) {
+        let pets = data;
+        let table = `<table style="width:100%">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Breed</th>
+        </tr>`;
+        $("#pets_table").html(table);
+    })
+}
+
+
+//<% if @user_pets && @user_pets.count < 1 %>
+//<h3> No pets yet! </h3>
+//<p> Head over to <%= link_to "View Available Pets", pets_path%>, to adopt a new furry friend! </p>
+
+//<% elsif @user_pets %>
+//<h1><%=current_user.display_name%> Pets</h1>
+//<%= render "layouts/pets_table" %>
+
+
+
+//<% else %>
+//<h1>Available Pets </h1>
+//<%= render "layouts/pets_table" %>
+//<br>
+//<% end %></br>

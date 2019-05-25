@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/admin/login', to: 'sessions#new', :as => :admin_login
   post '/admin/pets', to: 'admin/pets#create', :as => :admin_pet_create
   patch '/admin/pets/:id(.:format)', to: 'admin/pets#update', :as => :admin_pet_update
+  get '/users/:user_id/pets', to: 'pets#mypets', :as => :my_pet_index
 
   resources :pets, only: [:index]
 
@@ -22,7 +23,7 @@ Rails.application.routes.draw do
 
 
   resources :users do
-    resources :pets, only: [:index, :show, :edit, :update]
+    resources :pets, only: [:show, :edit, :update]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
