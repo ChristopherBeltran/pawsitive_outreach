@@ -237,6 +237,8 @@ function petsIndex() {
     })
 }
 
+//mypets page (users pets)
+
 function myPetsIndex() {
     $.getJSON("/pets.json", function(data) {
         let pets = data;
@@ -247,6 +249,17 @@ function myPetsIndex() {
             <th>Breed</th>
         </tr>`;
 })
+}
+
+function newAdoption() {
+    $('#new_adoption').submit(function(event) {
+        //prevent form from submitting the default way
+        event.preventDefault();
+        let petId = this["adoption[pet_id]"].value
+        var values = $(this).serialize();
+        var adoption = $.post(`/pets/${petId}/adoptions/new`)
+        
+    })
 }
 
 

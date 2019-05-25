@@ -15,6 +15,7 @@ class AdoptionsController < ApplicationController
 
   def create
     @adoption = Adoption.new(adoption_params)
+    render json: @adoption, status: 201
     if @adoption.save
         @pet = Pet.find_by(id: params[:pet_id])
         redirect_to edit_user_pet_path(current_user, @pet)

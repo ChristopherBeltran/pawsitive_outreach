@@ -13,6 +13,10 @@
   </ul>
 </div>
 
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(newAdoption);
+    </script>
+
 <h1> <%=@pet.display_name%> Adoption Agreement </h1>
 
 <%= form_for([@pet, @adoption]) do |f| %>
