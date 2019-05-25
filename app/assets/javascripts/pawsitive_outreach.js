@@ -257,8 +257,11 @@ function newAdoption() {
         event.preventDefault();
         let petId = this["adoption[pet_id]"].value
         var values = $(this).serialize();
-        var adoption = $.post(`/pets/${petId}/adoptions/new`)
-        
+        var adoption = $.post(`/pets/${petId}/adoptions`, values)
+
+        adoption.done(function(data) {
+            $('#adoption-form').html("")
+        })
     })
 }
 
@@ -278,3 +281,16 @@ function newAdoption() {
 //<%= render "layouts/pets_table" %>
 //<br>
 //<% end %></br>
+
+
+//<h3>Would you like to change <%=@pet.display_name%> name?</h3>
+//
+//<%= form_for @pet do |f| %>
+//<%= f.label :name %>
+//<%= f.text_field :name %>
+//<br>
+//<%= f.submit "Update #{@pet.name}" %>
+//<br>
+//<%= link_to "No Thanks", user_pets_path(current_user), class: 'button' %>
+
+//<% end %>//</br>

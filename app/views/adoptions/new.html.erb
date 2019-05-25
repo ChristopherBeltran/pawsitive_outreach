@@ -17,6 +17,7 @@
     $(document).ready(newAdoption);
     </script>
 
+<div id="adoption-form">
 <h1> <%=@pet.display_name%> Adoption Agreement </h1>
 
 <%= form_for([@pet, @adoption]) do |f| %>
@@ -26,3 +27,4 @@
 <%= f.date_field :adoption_date %>
 <%= f.submit "Adopt #{@pet.name}" %>
 <% end %>
+</div>
