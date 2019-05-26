@@ -82,16 +82,20 @@ class Pet {
             };
     };
 
-    prototypePostHTML() {
+    breedFormatter() {
         if (this.breeds.length > 1) {
             let br = []
             for(var i = 0; i < this.breeds.length; i++){
                 br.push(this.breeds[i].name);
             };
-            var pBreeds = br.join(", ");
+            return pBreeds = br.join(", ");
             } else {
-                var pBreeds = this.breeds[0].name;
+                return pBreeds = this.breeds[0].name;
             };
+    };
+
+    prototypePostHTML() {
+        var pBreeds = this.breedFormatter();
         var ownedStatus = this.ownedStatus();
         return (`
             <tr>
@@ -104,15 +108,7 @@ class Pet {
     };
 
     nonAdminPetIndexHTML() {
-        if (this.breeds.length > 1) {
-            let br = []
-            for(var i = 0; i < this.breeds.length; i++){
-                br.push(this.breeds[i].name);
-            };
-            var pBreeds = br.join(", ");
-            } else {
-                var pBreeds = this.breeds[0].name;
-            };
+            var pBreeds = this.breedFormatter();
             return (`
             <tr>
                 <td>${this.name}</td>
@@ -250,7 +246,9 @@ function petsIndex() {
 //mypets page (users pets)
 
 function myPetsIndex() {
-    $.getJSON("/pets.json", function(data) {
+    let userId = document.querySelector('#mypets-index-header').dataset.userId
+
+    $.getJSON(`/users/${userId}/pets.json`, function(data) {
         let pets = data;
         let table = `<table style="width:100%">
         <tr>
@@ -279,7 +277,7 @@ function newAdoption() {
                 let newPet = new Pet(data);
                 let newPetHTML = `
                 <h3>Would you like to change ${newPet.name}'s name?</h3>
-                
+
                 `
 
             })
