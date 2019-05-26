@@ -271,6 +271,18 @@ function newAdoption() {
 
         adoption.done(function(data) {
             $('#adoption-form').html("")
+            let newAdoption = new Adoption(data);
+            let petId = newAdoption.pet_id;
+            let userId = newAdoption.user_id;
+            $.getJSON(`/pets/${petId}.json`, function(data){
+                let pet = data;
+                let newPet = new Pet(data);
+                let newPetHTML = `
+                <h3>Would you like to change ${newPet.name}'s name?</h3>
+                
+                `
+
+            })
         })
     })
 }

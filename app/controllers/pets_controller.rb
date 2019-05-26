@@ -23,6 +23,7 @@ class PetsController < ApplicationController
 
   def show
     @pet = Pet.find_by(id: params[:id])
+    render json: @pet, status: 200
   end 
 
   def edit
