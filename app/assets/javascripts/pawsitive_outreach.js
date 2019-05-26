@@ -1,0 +1,312 @@
+//classes
+class Adoption {
+    constructor(obj) {
+        this.id = obj.id;
+        this.adoption_date = obj.adoption_date;
+        this.user_id = obj.user_id;
+        this.pet_id = obj.pet_id;
+    };
+};
+
+
+class Breed {
+    constructor(obj) {
+        this.id = obj.id;
+        this.name = obj.name;
+        this.pets = obj.pets;
+    };
+
+    prototypeBreedIndexHTML() {
+        return (`
+            <tr>
+                <td>${this.name}</td>
+                <td>${this.pets.length}</td>
+                <td><a href='/admin/breeds/${this.id}' onclick='adminBreedsShow(${this.id})'>View Pets</a></td>
+            </tr>
+        `);
+    }
+
+    prototypeBreedShowHTML() {
+        var breedObj = this;
+        for(var i = 0; i < this.pets.length; i++) {
+            $.getJSON(`/admin/pets/${this.pets[i]["id"]}.json`, function(data) {
+            let pet = data;
+            var newPet = new Pet(pet);
+                if(newPet.breeds.length === 1){
+                    var br = "Y";
+                } else {
+                    for(var i = 0; i < newPet.breeds.length; i++){
+                        if(newPet.breeds[i].name !== breedObj.name){
+                            debugger;
+                            var br = `N(Mixed with ${newPet.breeds[i].name})`;
+                        };
+                    }
+                
+                };
+            let owned = newPet.ownedStatus();
+            var petHTML = `
+            <tr>
+            <input id="${newPet.id}" type="hidden">
+                <td>${newPet.name}</td>
+                <td>${newPet.age}</td>
+                <td>${br}</td>
+                <td>${owned}</td>
+            </tr>`
+            $("tbody").append(petHTML);
+        });
+        }
+    }
+
+};
+
+class User {
+    constructor(obj) {
+        this.id = obj.id;
+        this.name = obj.name;
+    ;}
+};
+
+class Pet {
+    constructor(obj) {
+        this.id = obj.id;
+        this.name = obj.name;
+        this.age = obj.age;
+        this.breeds = obj.breeds;
+        this.users = obj.users;
+        this.adoptions = obj.adoptions;
+    };
+
+    ownedStatus() {
+        if (this.users.length > 0){
+            return "Y"
+            } else {
+                return `N - <a href='/admin/pets/${this.id}/edit'>Edit Pet</a>`;
+            };
+    };
+
+    breedFormatter() {
+        if (this.breeds.length > 1) {
+            let br = []
+            for(var i = 0; i < this.breeds.length; i++){
+                br.push(this.breeds[i].name);
+            };
+            return br.join(", ");
+            } else {
+                return this.breeds[0].name;
+            };
+    };
+
+    prototypePostHTML() {
+        var pBreeds = this.breedFormatter();
+        var ownedStatus = this.ownedStatus();
+        return (`
+            <tr>
+                <td>${this.name}</td>
+                <td>${this.age}</td>
+                <td>${pBreeds}</td>
+                <td>${ownedStatus}</td>
+            </tr>
+        `);
+    };
+
+    nonAdminPetIndexHTML() {
+            var pBreeds = this.breedFormatter();
+            return (`
+            <tr>
+                <td>${this.name}</td>
+                <td>${this.age}</td>
+                <td>${pBreeds}</td>
+                <td><a href='/pets/${this.id}/adoptions/new'>Adopt?</a></td>
+            </tr>
+        `);
+
+    };
+
+    myPetsIndexHTML() {
+    var pBreeds = this.breedFormatter();
+    return (`
+    <tr>
+        <td>${this.name}</td>
+        <td>${this.age}</td>
+        <td>${pBreeds}</td>
+        <td>${this.adoptions[0].adoption_date}</td>
+    </tr>
+    `);
+    }
+};
+
+
+//API calls
+
+//admin/pets page
+
+function adminPetsIndex() {
+    $.getJSON("/admin/pets.json", function(data) {
+        let pets = data;
+        let table = `<table style="width:100%">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Breed</th>
+            <th>Owned?</th>
+        </tr>`;
+        $("#admin_pets_table").html(table);
+        for(var i =0; i < pets.length; i++ ){
+            let newPet = new Pet(pets[i]);
+            let petHTML = newPet.prototypePostHTML();
+            $("tbody").append(petHTML);
+            }; 
+    })
+}
+
+//admin/pets/new page
+
+function addNewPet() {
+    $('#new_pet').submit(function(event) {
+        //prevent form from submitting the default way
+        event.preventDefault();
+        var values = $(this).serialize();
+
+        var pet = $.post('/admin/pets', values);
+        pet.done(function(data) {
+            $('#new_pet')[0].reset();
+            $('#pet_form')[0].style.display = "none";
+            let newPet = new Pet(data);
+            var newPetHTML = `<h2>${newPet.name} Successfully created!</h2>
+                <br>
+                <p>Age: ${newPet.age}</p>
+                <br>
+                <p>Breed(s): ${newPet.breeds[0].name}</p>
+                <br>
+                <input type="button" id="create_next_pet" value="Create Another Pet">
+                <br>
+                <br>
+                <a href="/admin/pets" class="button" id="pets_index_button">Return To Pets Page</a>
+                `;
+            $('#created_pet').append(newPetHTML);
+            $('#create_next_pet').on('click', function () {
+                $('#created_pet').empty()
+                $('#pet_form')[0].style.display = "block"
+                $('#new_pet_button').prop('disabled', false);
+            })
+        })
+    })
+};
+
+//admin/breeds page
+
+function adminBreedsIndex() {
+    $.getJSON("/admin/breeds.json", function(data) {
+        let breeds = data;
+        let table = `<table style="width:100%">
+        <tr>
+            <th>Breed</th>
+            <th># of Pets</th>
+        </tr>`;
+        $("#admin-breeds-table").html(table);
+        for(var i =0; i < breeds.length; i++ ){
+            let newBreed = new Breed(breeds[i]);
+            let breedHTML = newBreed.prototypeBreedIndexHTML();
+            $("tbody").append(breedHTML);
+            }; 
+    })
+}
+
+//admin/breeds/show page
+function adminBreedsShow(val) {
+    $.getJSON(`/admin/breeds/${val}.json`, function (data) {
+        var saveData = data;
+        localStorage.setItem('breed', JSON.stringify(saveData));
+    });
+}
+
+function displayBreed() {
+    let breed = JSON.parse(localStorage.getItem('breed'));
+    let newBreed = new Breed(breed);
+    let header = `<h1>${newBreed.name}'s</h1>`
+    $("#breed-header").append(header);
+    let breedTable = `<table style="width:100%">
+        <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Full-Bred</th>
+        <th>Owned?</th>
+        </tr>`; 
+    $("#breed-table").append(breedTable);
+
+    newBreed.prototypeBreedShowHTML();
+    };
+
+    //pets index page non-admin
+
+function petsIndex() {
+    $.getJSON("/pets.json", function(data) {
+        let pets = data;
+        let table = `<table style="width:100%">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Breed</th>
+        </tr>`;
+        $("#pets_table").html(table);
+        for(var i =0; i < pets.length; i++ ){
+            let newPet = new Pet(pets[i]);
+            let petHTML = newPet.nonAdminPetIndexHTML();
+            $("tbody").append(petHTML);
+        }
+    })
+}
+
+//mypets page (users pets)
+
+function myPetsIndex() {
+    let userId = document.querySelector('#mypets-index-header').dataset.userId
+
+    $.getJSON(`/users/${userId}/pets.json`, function(data) {
+        let pets = data;
+        let table = `<table style="width:100%">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Breed</th>
+            <th>Adoption Date</th>
+        </tr>`;
+        $('#mypets_table').html(table);
+        for(var i =0; i < pets.length; i++ ){
+            let newPet = new Pet(pets[i]);
+        let petHTML = newPet.myPetsIndexHTML();
+        $("tbody").append(petHTML);
+        }
+    })
+}
+
+function newAdoption() {
+    $('#new_adoption').submit(function(event) {
+        //prevent form from submitting the default way
+        event.preventDefault();
+        let petId = this["adoption[pet_id]"].value
+        var values = $(this).serialize();
+        var adoption = $.post(`/pets/${petId}/adoptions`, values)
+
+        adoption.done(function(data) {
+            $('#adoption-form').html("")
+            let newAdoption = new Adoption(data);
+            let petId = newAdoption.pet_id;
+            let userId = newAdoption.user_id;
+            $.getJSON(`/pets/${petId}.json`, function(data){
+                let pet = data;
+                let newPet = new Pet(data);
+                let newPetHTML = `
+                <h2>Congratulations, ${newPet.name} is all yours!</h2>
+                <br>
+                <h3>Would you like to change the name?</h3>
+                <a href='/pets/${newPet.id}/edit'>Edit ${newPet.name}</a>
+                <br>
+                <p>Or return to</p><a href='/users/${userId}/pets'>My Pets</a>
+
+                `
+                $('#post-adoption').append(newPetHTML);
+            })
+        })
+    })
+}

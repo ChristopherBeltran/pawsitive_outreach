@@ -1,3 +1,6 @@
+<div id="created_pet">
+</div>
+<div id="pet_form">
 <h1>Add New Pet </h1>
 <% if @pet.errors.any? %>
   <div id="error_explanation">
@@ -30,6 +33,10 @@
 <%= f.label "New breed?" %>
 <%= breeds_fields.text_field :name %>
 <br>
-<%= f.submit "Add Pet" %>
+<%= f.submit "Add Pet", id: "new_pet_button" %>
 <% end %>
 <% end %>
+</div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(addNewPet);
+    </script>

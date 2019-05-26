@@ -3,8 +3,12 @@ class Admin::PetsController < ApplicationController
   before_action :find_pet, only: [:show, :edit, :update]
 
   def index
-    @pets = Pet.all.order(:name)
+    pets = Pet.all.order(:name)
     #Class Scope Method
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: pets, status: 200 }
+    end 
   end
 
   def new
@@ -13,18 +17,16 @@ class Admin::PetsController < ApplicationController
 
   def create
     @pet = Pet.create(pet_params)
-    if @pet.save
-      redirect_to admin_pets_path
-    else
-      #flash[:notice] = "Pet details invalid"
+    render json: @pet, status: 201
+    if !@pet.save
       render :new
       #error for pet being invalid
     end
   end
 
   def show
-    #@pet = Pet.find_by(id: params[:id])
-    #find_pet
+    pet = Pet.find_by(id: params[:id])
+    render json: pet, status: 200
   end
 
   def edit
