@@ -1,4 +1,4 @@
-<h3>Would you like to change <%=@pet.display_name%> name?</h3>
+<h3>Change <%=@pet.display_name%> name</h3>
 
 <%= form_for @pet do |f| %>
 <%= f.label :name %>
@@ -6,6 +6,4 @@
 <br>
 <%= f.submit "Update #{@pet.name}" %>
 <br>
-<%= link_to "No Thanks", user_pets_path(current_user), class: 'button' %>
-
 <% end %>

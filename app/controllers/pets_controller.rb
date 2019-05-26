@@ -36,7 +36,7 @@ class PetsController < ApplicationController
   def update
     pet = Pet.find_by(id: params[:id])
     pet.update(pet_params)
-    redirect_to user_pets_path(current_user)
+    redirect_to my_pet_index_url(current_user)
   end
 
 private

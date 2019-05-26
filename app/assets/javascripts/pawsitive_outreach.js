@@ -72,6 +72,7 @@ class Pet {
         this.age = obj.age;
         this.breeds = obj.breeds;
         this.users = obj.users;
+        this.adoptions = obj.adoptions;
     };
 
     ownedStatus() {
@@ -88,9 +89,9 @@ class Pet {
             for(var i = 0; i < this.breeds.length; i++){
                 br.push(this.breeds[i].name);
             };
-            return pBreeds = br.join(", ");
+            return br.join(", ");
             } else {
-                return pBreeds = this.breeds[0].name;
+                return this.breeds[0].name;
             };
     };
 
@@ -119,6 +120,18 @@ class Pet {
         `);
 
     };
+
+    myPetsIndexHTML() {
+    var pBreeds = this.breedFormatter();
+    return (`
+    <tr>
+        <td>${this.name}</td>
+        <td>${this.age}</td>
+        <td>${pBreeds}</td>
+        <td>${this.adoptions[0].adoption_date}</td>
+    </tr>
+    `);
+    }
 };
 
 
@@ -255,8 +268,15 @@ function myPetsIndex() {
             <th>Name</th>
             <th>Age</th>
             <th>Breed</th>
+            <th>Adoption Date</th>
         </tr>`;
-})
+        $('#mypets_table').html(table);
+        for(var i =0; i < pets.length; i++ ){
+            let newPet = new Pet(pets[i]);
+        let petHTML = newPet.myPetsIndexHTML();
+        $("tbody").append(petHTML);
+        }
+    })
 }
 
 function newAdoption() {
@@ -276,10 +296,15 @@ function newAdoption() {
                 let pet = data;
                 let newPet = new Pet(data);
                 let newPetHTML = `
-                <h3>Would you like to change ${newPet.name}'s name?</h3>
+                <h2>Congratulations, ${newPet.name} is all yours!</h2>
+                <br>
+                <h3>Would you like to change the name?</h3>
+                <a href='/pets/${newPet.id}/edit'>Edit ${newPet.name}</a>
+                <br>
+                <p>Or return to</p><a href='/users/${userId}/pets'>My Pets</a>
 
                 `
-
+                $('#post-adoption').append(newPetHTML);
             })
         })
     })
