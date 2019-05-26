@@ -27,8 +27,7 @@ class Breed {
     }
 
     prototypeBreedShowHTML() {
-        let pets = [];
-
+        var breedObj = this;
         for(var i = 0; i < this.pets.length; i++) {
             $.getJSON(`/admin/pets/${this.pets[i]["id"]}.json`, function(data) {
             let pet = data;
@@ -36,11 +35,13 @@ class Breed {
                 if(newPet.breeds.length === 1){
                     var br = "Y";
                 } else {
-                    newPet.breeds.forEach(function (breed) {
-                        if (breed.name != this.name) {
-                            var br = `N(Mixed with ${breed.name})`;
-                        }
-                    })
+                    for(var i = 0; i < newPet.breeds.length; i++){
+                        if(newPet.breeds[i].name !== breedObj.name){
+                            debugger;
+                            var br = `N(Mixed with ${newPet.breeds[i].name})`;
+                        };
+                    }
+                
                 };
             let owned = newPet.ownedStatus();
             var petHTML = `
@@ -309,33 +310,3 @@ function newAdoption() {
         })
     })
 }
-
-
-//<% if @user_pets && @user_pets.count < 1 %>
-//<h3> No pets yet! </h3>
-//<p> Head over to <%= link_to "View Available Pets", pets_path%>, to adopt a new furry friend! </p>
-
-//<% elsif @user_pets %>
-//<h1><%=current_user.display_name%> Pets</h1>
-//<%= render "layouts/pets_table" %>
-
-
-
-//<% else %>
-//<h1>Available Pets </h1>
-//<%= render "layouts/pets_table" %>
-//<br>
-//<% end %></br>
-
-
-//<h3>Would you like to change <%=@pet.display_name%> name?</h3>
-//
-//<%= form_for @pet do |f| %>
-//<%= f.label :name %>
-//<%= f.text_field :name %>
-//<br>
-//<%= f.submit "Update #{@pet.name}" %>
-//<br>
-//<%= link_to "No Thanks", user_pets_path(current_user), class: 'button' %>
-
-//<% end %>//</br>
