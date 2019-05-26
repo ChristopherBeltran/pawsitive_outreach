@@ -1,4 +1,14 @@
 //classes
+class Adoption {
+    constructor(obj) {
+        this.id = obj.id;
+        this.adoption_date = obj.adoption_date;
+        this.user_id = obj.user_id;
+        this.pet_id = obj.pet_id;
+    };
+};
+
+
 class Breed {
     constructor(obj) {
         this.id = obj.id;
@@ -151,7 +161,7 @@ function addNewPet() {
         pet.done(function(data) {
             $('#new_pet')[0].reset();
             $('#pet_form')[0].style.display = "none";
-            let newPet = new Pet(data);;
+            let newPet = new Pet(data);
             var newPetHTML = `<h2>${newPet.name} Successfully created!</h2>
                 <br>
                 <p>Age: ${newPet.age}</p>
