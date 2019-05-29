@@ -37,7 +37,6 @@ class Breed {
                 } else {
                     for(var i = 0; i < newPet.breeds.length; i++){
                         if(newPet.breeds[i].name !== breedObj.name){
-                            debugger;
                             var br = `N(Mixed with ${newPet.breeds[i].name})`;
                         };
                     }
@@ -59,12 +58,12 @@ class Breed {
 
 };
 
-class User {
-    constructor(obj) {
-        this.id = obj.id;
-        this.name = obj.name;
-    ;}
-};
+//class User {
+//    constructor(obj) {
+//        this.id = obj.id;
+//        this.name = obj.name;
+//    ;}
+//};
 
 class Pet {
     constructor(obj) {
