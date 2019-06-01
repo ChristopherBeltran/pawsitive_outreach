@@ -27,13 +27,14 @@ class Breed {
     }
 
     prototypeBreedShowHTML() {
-        var breedObj = this;
-        for(var i = 0; i < this.pets.length; i++) {
-            $.getJSON(`/admin/pets/${this.pets[i]["id"]}.json`, function(data) {
+        const breedObj = this;
+        for(const p of this.pets) {
+            $.getJSON(`/admin/pets/${p["id"]}.json`, function(data) {
             let pet = data;
-            var newPet = new Pet(pet);
+            let newPet = new Pet(pet);
                 if(newPet.breeds.length === 1){
                     var br = "Y";
+                  
                 } else {
                     for(var i = 0; i < newPet.breeds.length; i++){
                         if(newPet.breeds[i].name !== breedObj.name){
@@ -42,8 +43,8 @@ class Breed {
                     }
                 
                 };
-            let owned = newPet.ownedStatus();
-            var petHTML = `
+            const owned = newPet.ownedStatus();
+            const petHTML = `
             <tr>
             <input id="${newPet.id}" type="hidden">
                 <td>${newPet.name}</td>
@@ -86,8 +87,8 @@ class Pet {
     breedFormatter() {
         if (this.breeds.length > 1) {
             let br = []
-            for(var i = 0; i < this.breeds.length; i++){
-                br.push(this.breeds[i].name);
+            for(const breed of this.breeds){
+                br.push(breed.name);
             };
             return br.join(", ");
             } else {
@@ -96,8 +97,8 @@ class Pet {
     };
 
     prototypePostHTML() {
-        var pBreeds = this.breedFormatter();
-        var ownedStatus = this.ownedStatus();
+        const pBreeds = this.breedFormatter();
+        const ownedStatus = this.ownedStatus();
         return (`
             <tr>
                 <td>${this.name}</td>
@@ -109,7 +110,7 @@ class Pet {
     };
 
     nonAdminPetIndexHTML() {
-            var pBreeds = this.breedFormatter();
+            const pBreeds = this.breedFormatter();
             return (`
             <tr>
                 <td>${this.name}</td>
@@ -122,7 +123,7 @@ class Pet {
     };
 
     myPetsIndexHTML() {
-    var pBreeds = this.breedFormatter();
+    const pBreeds = this.breedFormatter();
     return (`
     <tr>
         <td>${this.name}</td>
@@ -150,8 +151,8 @@ function adminPetsIndex() {
             <th>Owned?</th>
         </tr>`;
         $("#admin_pets_table").html(table);
-        for(var i =0; i < pets.length; i++ ){
-            let newPet = new Pet(pets[i]);
+        for(const p of pets){
+            let newPet = new Pet(p);
             let petHTML = newPet.prototypePostHTML();
             $("tbody").append(petHTML);
             }; 
@@ -164,14 +165,14 @@ function addNewPet() {
     $('#new_pet').submit(function(event) {
         //prevent form from submitting the default way
         event.preventDefault();
-        var values = $(this).serialize();
+        const values = $(this).serialize();
 
-        var pet = $.post('/admin/pets', values);
+        const pet = $.post('/admin/pets', values);
         pet.done(function(data) {
             $('#new_pet')[0].reset();
             $('#pet_form')[0].style.display = "none";
-            let newPet = new Pet(data);
-            var newPetHTML = `<h2>${newPet.name} Successfully created!</h2>
+            const newPet = new Pet(data);
+            const newPetHTML = `<h2>${newPet.name} Successfully created!</h2>
                 <br>
                 <p>Age: ${newPet.age}</p>
                 <br>
@@ -196,15 +197,15 @@ function addNewPet() {
 
 function adminBreedsIndex() {
     $.getJSON("/admin/breeds.json", function(data) {
-        let breeds = data;
-        let table = `<table style="width:100%">
+        const breeds = data;
+        const table = `<table style="width:100%">
         <tr>
             <th>Breed</th>
             <th># of Pets</th>
         </tr>`;
         $("#admin-breeds-table").html(table);
-        for(var i =0; i < breeds.length; i++ ){
-            let newBreed = new Breed(breeds[i]);
+        for(const br of breeds){
+            let newBreed = new Breed(br);
             let breedHTML = newBreed.prototypeBreedIndexHTML();
             $("tbody").append(breedHTML);
             }; 
@@ -214,17 +215,17 @@ function adminBreedsIndex() {
 //admin/breeds/show page
 function adminBreedsShow(val) {
     $.getJSON(`/admin/breeds/${val}.json`, function (data) {
-        var saveData = data;
+        const saveData = data;
         localStorage.setItem('breed', JSON.stringify(saveData));
     });
 }
 
 function displayBreed() {
-    let breed = JSON.parse(localStorage.getItem('breed'));
-    let newBreed = new Breed(breed);
-    let header = `<h1>${newBreed.name}'s</h1>`
+    const breed = JSON.parse(localStorage.getItem('breed'));
+    const newBreed = new Breed(breed);
+    const header = `<h1>${newBreed.name}'s</h1>`
     $("#breed-header").append(header);
-    let breedTable = `<table style="width:100%">
+    const breedTable = `<table style="width:100%">
         <tr>
         <th>Name</th>
         <th>Age</th>
@@ -240,16 +241,16 @@ function displayBreed() {
 
 function petsIndex() {
     $.getJSON("/pets.json", function(data) {
-        let pets = data;
-        let table = `<table style="width:100%">
+        const pets = data;
+        const table = `<table style="width:100%">
         <tr>
             <th>Name</th>
             <th>Age</th>
             <th>Breed</th>
         </tr>`;
         $("#pets_table").html(table);
-        for(var i =0; i < pets.length; i++ ){
-            let newPet = new Pet(pets[i]);
+        for(const p of pets){
+            let newPet = new Pet(p);
             let petHTML = newPet.nonAdminPetIndexHTML();
             $("tbody").append(petHTML);
         }
@@ -259,11 +260,11 @@ function petsIndex() {
 //mypets page (users pets)
 
 function myPetsIndex() {
-    let userId = document.querySelector('#mypets-index-header').dataset.userId
+    const userId = document.querySelector('#mypets-index-header').dataset.userId
 
     $.getJSON(`/users/${userId}/pets.json`, function(data) {
-        let pets = data;
-        let table = `<table style="width:100%">
+        const pets = data;
+        const table = `<table style="width:100%">
         <tr>
             <th>Name</th>
             <th>Age</th>
@@ -271,8 +272,8 @@ function myPetsIndex() {
             <th>Adoption Date</th>
         </tr>`;
         $('#mypets_table').html(table);
-        for(var i =0; i < pets.length; i++ ){
-            let newPet = new Pet(pets[i]);
+        for(const p of pets){
+            let newPet = new Pet(p);
         let petHTML = newPet.myPetsIndexHTML();
         $("tbody").append(petHTML);
         }
@@ -283,15 +284,15 @@ function newAdoption() {
     $('#new_adoption').submit(function(event) {
         //prevent form from submitting the default way
         event.preventDefault();
-        let petId = this["adoption[pet_id]"].value
-        var values = $(this).serialize();
-        var adoption = $.post(`/pets/${petId}/adoptions`, values)
+        const petId = this["adoption[pet_id]"].value
+        const values = $(this).serialize();
+        const adoption = $.post(`/pets/${petId}/adoptions`, values)
 
         adoption.done(function(data) {
             $('#adoption-form').html("")
-            let newAdoption = new Adoption(data);
-            let petId = newAdoption.pet_id;
-            let userId = newAdoption.user_id;
+            const newAdoption = new Adoption(data);
+            const petId = newAdoption.pet_id;
+            const userId = newAdoption.user_id;
             $.getJSON(`/pets/${petId}.json`, function(data){
                 let pet = data;
                 let newPet = new Pet(data);
