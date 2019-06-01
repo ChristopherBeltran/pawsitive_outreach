@@ -86,10 +86,7 @@ class Pet {
 
     breedFormatter() {
         if (this.breeds.length > 1) {
-            let br = []
-            for(const breed of this.breeds){
-                br.push(breed.name);
-            };
+            const br = this.breeds.map(breed => breed.name)
             return br.join(", ");
             } else {
                 return this.breeds[0].name;
