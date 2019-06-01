@@ -136,8 +136,7 @@ class Pet {
 //API calls
 
 //admin/pets page
-
-function adminPetsIndex() {
+const adminPetsIndex = () => (
     $.getJSON("/admin/pets.json", function(data) {
         let pets = data;
         let table = `<table style="width:100%">
@@ -154,11 +153,11 @@ function adminPetsIndex() {
             $("tbody").append(petHTML);
             }; 
     })
-}
+)
 
 //admin/pets/new page
 
-function addNewPet() {
+const addNewPet = () => (
     $('#new_pet').submit(function(event) {
         //prevent form from submitting the default way
         event.preventDefault();
@@ -188,11 +187,11 @@ function addNewPet() {
             })
         })
     })
-};
+)
 
 //admin/breeds page
 
-function adminBreedsIndex() {
+const adminBreedsIndex = () => (
     $.getJSON("/admin/breeds.json", function(data) {
         const breeds = data;
         const table = `<table style="width:100%">
@@ -207,15 +206,15 @@ function adminBreedsIndex() {
             $("tbody").append(breedHTML);
             }; 
     })
-}
+)
 
 //admin/breeds/show page
-function adminBreedsShow(val) {
+const adminBreedsShow = val => (
     $.getJSON(`/admin/breeds/${val}.json`, function (data) {
         const saveData = data;
         localStorage.setItem('breed', JSON.stringify(saveData));
-    });
-}
+    })
+)
 
 function displayBreed() {
     const breed = JSON.parse(localStorage.getItem('breed'));
@@ -236,7 +235,7 @@ function displayBreed() {
 
     //pets index page non-admin
 
-function petsIndex() {
+const petsIndex = () => (
     $.getJSON("/pets.json", function(data) {
         const pets = data;
         const table = `<table style="width:100%">
@@ -252,7 +251,7 @@ function petsIndex() {
             $("tbody").append(petHTML);
         }
     })
-}
+);
 
 //mypets page (users pets)
 
@@ -277,7 +276,7 @@ function myPetsIndex() {
     })
 }
 
-function newAdoption() {
+const newAdoption = () => (
     $('#new_adoption').submit(function(event) {
         //prevent form from submitting the default way
         event.preventDefault();
@@ -306,4 +305,4 @@ function newAdoption() {
             })
         })
     })
-}
+)
