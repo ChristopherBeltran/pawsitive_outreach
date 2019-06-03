@@ -36,7 +36,7 @@ class Breed {
                     var br = "Y";
                   
                 } else {
-                    for(var i = 0; i < newPet.breeds.length; i++){
+                    for(let i = 0; i < newPet.breeds.length; i++){
                         if(newPet.breeds[i].name !== breedObj.name){
                             var br = `N(Mixed with ${newPet.breeds[i].name})`;
                         };
