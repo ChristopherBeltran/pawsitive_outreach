@@ -1,5 +1,5 @@
 # Pawsitive Outreach
-A Rails application that is intended to be used as a platform for animal adoption agencies to allow users to view and agree to adoptions, while also providing an admin backdoor platform to maintain the inventory of pets.
+A Rails application that is intended to be used as a mock platform for animal adoption agencies to allow users to view and agree to adoptions, while also providing an admin backdoor platform to maintain the inventory of pets.
 
 ## Usage
 
