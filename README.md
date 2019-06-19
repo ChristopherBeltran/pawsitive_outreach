@@ -1,5 +1,12 @@
 # Pawsitive Outreach
-A Rails application that is intended to be used as a mock platform for animal adoption agencies to allow users to view and agree to adoptions, while also providing an admin backdoor platform to maintain the inventory of pets.
+A mock animal shelter platform that is built on a Ruby on Rails backend, with a Javascript front end.  Additional features include:
+
+* Omniauth login via Google
+* Separate Admin backdoor login
+* API endpoints setup via Rails controllers
+* JSON serialized classes
+* JS written in ES6 syntax & jQuery
+
 
 ## Usage
 
